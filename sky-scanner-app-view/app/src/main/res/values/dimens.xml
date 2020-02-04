@@ -3,8 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="appbar_padding">16dp</dimen>
-    <dimen name="add_fab_margin">16dp</dimen>
-    <dimen name="del_fab_right_margin">87dp</dimen>
+    <dimen name="add_fab_right_margin">87dp</dimen>
+    <dimen name="add_fab_bottom_margin">16dp</dimen>
+    <dimen name="del_fab_right_margin">16dp</dimen>
     <dimen name="del_fab_bottom_margin">16dp</dimen>
     <dimen name="edit_fab_right_margin">158dp</dimen>
     <dimen name="edit_fab_bottom_margin">16dp</dimen>

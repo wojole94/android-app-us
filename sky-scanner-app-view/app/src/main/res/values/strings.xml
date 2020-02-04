@@ -3,4 +3,7 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
+    <string name="add_new_button">DODAJ NOWY PROFIL</string>
+    <string name="edit_button">EDYTUJ PROFIL</string>
+    <string name="del_button">USUŃ PROFIL</string>
 </resources>
