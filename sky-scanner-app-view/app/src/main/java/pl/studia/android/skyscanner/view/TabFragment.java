@@ -40,7 +40,7 @@ public class TabFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LinearLayout standard_tab_layout =(LinearLayout) inflater.inflate(R.layout.standard_tab_layout, null);
+        LinearLayout standard_tab_layout = (LinearLayout) inflater.inflate(R.layout.standard_tab_layout, null);
         return standard_tab_layout;
     }
 }

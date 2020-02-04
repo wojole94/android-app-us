@@ -1,21 +1,28 @@
 package pl.studia.android.skyscanner.view;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class AddTabFragment extends Fragment {
 
-
+    @BindView(R.id.Badd) Button addButon;
     MainActivity main;
     Context context = null;
 
@@ -42,6 +49,15 @@ public class AddTabFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RelativeLayout standard_tab_layout = (RelativeLayout) inflater.inflate(R.layout.add_new_tab_layout, null);
+        ButterKnife.bind(this, standard_tab_layout);
+        addButon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editIntent = new Intent(main.getBaseContext(), EditFormActivity.class);
+                main.startActivity(editIntent);
+            }
+        });
+
         return standard_tab_layout;
     }
 }

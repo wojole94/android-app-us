@@ -6,4 +6,17 @@
     <string name="add_new_button">DODAJ NOWY PROFIL</string>
     <string name="edit_button">EDYTUJ PROFIL</string>
     <string name="del_button">USUŃ PROFIL</string>
+
+    <string name="cancel_button">ANULUJ</string>
+    <string name="save_button">ZAPISZ</string>
+
+    <string name="adults_count_text">Dorośli</string>
+    <string name="childs_count_text">Dzieci</string>
+    <string name="departure_loc_text">Miasto odlotu</string>
+    <string name="arrival_loc_text">Miasto przylotu</string>
+    <string name="date_range_text">Zakres przeszukiwanych dat</string>
+    <string name="max_transfers_text">Maksymalna liczba przesiadek</string>
+    <string name="max_cost_text">Maksymalna oczekiwana cena</string>
+    <string name="just_weekends_text">Szukaj tylko lotów weekendowych</string>
+
 </resources>

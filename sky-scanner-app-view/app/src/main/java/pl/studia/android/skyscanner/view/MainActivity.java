@@ -18,9 +18,6 @@ public class MainActivity extends AppCompatActivity{
     protected TabLayout tabs;
      TextView txtMsg;
     ViewGroup scrollViewgroup;
-    //@BindView(R.id.Badd)Button addButton;
-    //@BindView(R.id.Bedit) Button editButton;
-    //@BindView(R.id.Bdel) Button delButton;
 
     String[] items = { "Data-1", "Dodaj..." };
 
