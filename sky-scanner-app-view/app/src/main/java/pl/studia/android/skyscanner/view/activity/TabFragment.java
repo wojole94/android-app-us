@@ -1,4 +1,4 @@
-package pl.studia.android.skyscanner.view;
+package pl.studia.android.skyscanner.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.app.Fragment;
+
+import pl.studia.android.skyscanner.view.R;
 
 
 public class TabFragment extends Fragment {

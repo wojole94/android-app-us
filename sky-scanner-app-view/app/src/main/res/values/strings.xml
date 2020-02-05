@@ -18,5 +18,6 @@
     <string name="max_transfers_text">Maksymalna liczba przesiadek</string>
     <string name="max_cost_text">Maksymalna oczekiwana cena</string>
     <string name="just_weekends_text">Szukaj tylko lotów weekendowych</string>
+    <string name="add_new_profile_tab_caption">Dodaj...</string>
 
 </resources>

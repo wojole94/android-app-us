@@ -1,7 +1,6 @@
-package pl.studia.android.skyscanner.view;
+package pl.studia.android.skyscanner.view.activity;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,15 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
+import pl.studia.android.skyscanner.view.datamodel.UserData;
 
 
 public class AddTabFragment extends Fragment {
