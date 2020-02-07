@@ -80,14 +80,10 @@
                     android:layout_weight="1"
                     android:text="@string/departure_loc_text" />
 
-                <EditText
-                    android:id="@+id/ETdepLoc"
+                <Spinner android:id="@+id/SdepLoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="" />
+                    android:layout_weight="1"/>
             </LinearLayout>
         </TableRow>
 
@@ -107,14 +103,11 @@
                     android:layout_weight="1"
                     android:text="@string/arrival_loc_text" />
 
-                <EditText
-                    android:id="@+id/ETarrLoc"
+                <Spinner android:id="@+id/SarrLoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="" />
+                    android:layout_weight="1"/>
+
             </LinearLayout>
         </TableRow>
         <TableRow
@@ -211,14 +204,10 @@
                     android:layout_weight="1"
                     android:text="@string/just_weekends_text" />
 
-                <EditText
-                    android:id="@+id/ETweekends"
+                <CheckBox
+                    android:id="@+id/CBweekends"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </TableRow>
     </TableLayout>
