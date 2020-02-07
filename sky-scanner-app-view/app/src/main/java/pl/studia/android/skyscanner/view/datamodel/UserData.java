@@ -10,6 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserData implements Serializable {
+
+    private static final long serialVersionUID = -2409412101718658408L;
     String username;
     String password;
 

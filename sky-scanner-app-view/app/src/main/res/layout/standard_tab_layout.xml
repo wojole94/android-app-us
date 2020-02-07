@@ -15,23 +15,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/TVadultsLabel"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:text="@string/adults_count_text" />
 
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/TVadultsValue"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="" />
             </LinearLayout>
         </TableRow>
 
@@ -42,23 +41,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/TVchildsLabel"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:text="@string/childs_count_text" />
 
-                <EditText
-                    android:id="@+id/editText2"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/TVchildsValue"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="" />
             </LinearLayout>
         </TableRow>
 
@@ -69,23 +67,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/TVdepLocLabel"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:text="@string/departure_loc_text" />
 
-                <EditText
-                    android:id="@+id/editText3"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/TVdepLocValue"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="" />
             </LinearLayout>
         </TableRow>
 
@@ -96,23 +93,122 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/TVarrLocLabel"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:text="@string/arrival_loc_text" />
 
-                <EditText
-                    android:id="@+id/editText4"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/TVarrLocValue"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="" />
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/TVdatesLabel"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/date_range_text" />
+
+                <TextView
+                    android:id="@+id/TVdatesValue"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/TVmaxTransLabel"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/max_transfers_text" />
+
+                <TextView
+                    android:id="@+id/TVmaxTransValue"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/TVmaxCostLabel"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/max_cost_text" />
+
+                <TextView
+                    android:id="@+id/TVmaxCostValue"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/TVweekendsLabel"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/just_weekends_text" />
+
+                <TextView
+                    android:id="@+id/TVweekendsValue"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="" />
             </LinearLayout>
         </TableRow>
     </TableLayout>

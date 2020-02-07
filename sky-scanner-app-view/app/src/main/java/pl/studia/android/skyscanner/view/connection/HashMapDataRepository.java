@@ -1,8 +1,6 @@
 package pl.studia.android.skyscanner.view.connection;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
@@ -10,7 +8,7 @@ import pl.studia.android.skyscanner.view.datamodel.UserData;
 
 public class HashMapDataRepository implements DataRepository{
     //Only mocked data structure
-    Map<UserData, List<ProfileData>> dataSource;
+    Map<UserData, Map<Integer,ProfileData>> dataSource;
     static HashMapDataRepository INSTANCE;
 
     private HashMapDataRepository(){
@@ -25,22 +23,22 @@ public class HashMapDataRepository implements DataRepository{
     }
 
 
-   public List<ProfileData> getProfiles(UserData user){
+   public Map<Integer, ProfileData> getProfiles(UserData user){
         //Getting data from external server here
-       List<ProfileData> profilesList = dataSource.get(user);
+       Map<Integer, ProfileData> profilesList = dataSource.get(user);
        if (profilesList == null){
-           profilesList = new LinkedList<ProfileData>();
+           profilesList = new HashMap<>();
            dataSource.put(user, profilesList);
        }
         return profilesList;
     }
 
     public ProfileData addProfile(UserData user, ProfileData profile){
-        List<ProfileData> profilesList = dataSource.get(user);
+        Map<Integer, ProfileData> profilesList = dataSource.get(user);
         if (profilesList == null){
-            profilesList = new LinkedList<ProfileData>();
+            profilesList = new HashMap<>();
         }
-        profilesList.add(profile);
+        profilesList.put(profile.hashCode(),profile);
         dataSource.put(user, profilesList);
 
         return profile;

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,10 +21,10 @@ import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
 
 
 public class MainActivity extends AppCompatActivity {
-    static final Integer ADD_TAB_ID = 999;
+    static final Integer ADD_TAB_ID = -1;
     @BindView(R.id.viewgroup) ViewGroup scrollViewgroup;
     DataRepository dataAccess;
-    List<ProfileData> items;
+    Map<Integer, ProfileData> items;
     UserData user;
 
     @Override
@@ -52,24 +53,26 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void buildTabsList(List<ProfileData> items){
+    private void buildTabsList(Map<Integer, ProfileData> items){
 
         //TODO Transform to stream and get proper id to identify which tab coresponds to which data
-        for (int i = 0; i < items.size(); i++) {
+        //TODO Maybe change data storage to Map that will contain ID?
+        for (Map.Entry<Integer,ProfileData> entry : items.entrySet()) {
             final View singleFrame = getLayoutInflater().inflate(
                     R.layout.frame_icon_caption, null);
-            //singleFrame.setId();
+            singleFrame.setId(entry.getKey());
             TextView caption = singleFrame.findViewById(R.id.caption);
 
             scrollViewgroup.addView(singleFrame);
-            caption.setText(items.get(i).toString());
+            caption.setText(entry.getValue().toString());
             singleFrame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Setting new fragment at tab
-                    v.getId();
+                    Integer dataID = v.getId();
+                    Map<Integer, ProfileData> data = dataAccess.getProfiles(user);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    TabFragment tabFragment = TabFragment.newInstance();
+                    TabFragment tabFragment = TabFragment.newInstance(data.get(dataID));
                     ft.replace(R.id.tab_holder, tabFragment);
                     ft.commit();
                 }
