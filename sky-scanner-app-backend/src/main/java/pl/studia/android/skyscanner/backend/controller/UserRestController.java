@@ -1,14 +1,14 @@
 package pl.studia.android.skyscanner.backend.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import pl.studia.android.skyscanner.backend.db.manager.UserAccountManager;
-import pl.studia.android.skyscanner.backend.db.model.UserAccount;
-import pl.studia.android.skyscanner.backend.model.SearchParameters;
+import pl.studia.android.skyscanner.backend.db.model.UserAccountDTO;
+
+import java.util.Optional;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -22,22 +22,22 @@ public class UserRestController {
     }
 
     @GetMapping("/getUsers")
-    public Iterable<UserAccount> getAll() {
+    public Iterable<UserAccountDTO> getAll() {
         return userAccountManager.findAll();
     }
 
     @GetMapping("/getUser")
-    public Optional<UserAccount> get(@RequestParam String email) {
+    public Optional<UserAccountDTO> get(@RequestParam String email) {
         return userAccountManager.findById(email);
     }
 
     @PostMapping("/auth")
-    public Boolean authentication(@Valid @RequestBody UserAccount userAccountToValidate){
+    public Boolean authentication(@Valid @RequestBody UserAccountDTO userAccountDTOToValidate){
         Boolean isValid = false;
-        Optional<UserAccount> usAcInDb = userAccountManager.findById(userAccountToValidate.getEmail());
+        Optional<UserAccountDTO> usAcInDb = userAccountManager.findById(userAccountDTOToValidate.getEmail());
         if(usAcInDb.isPresent()){
-            UserAccount userAccountInDb = usAcInDb.get();
-            if(userAccountInDb.getPassword().equals(userAccountToValidate.getPassword()))
+            UserAccountDTO userAccountDTOInDb = usAcInDb.get();
+            if(userAccountDTOInDb.getPassword().equals(userAccountDTOToValidate.getPassword()))
                 isValid = true;
         }
         return isValid;
@@ -45,8 +45,8 @@ public class UserRestController {
 
 //TODO check
     @PostMapping
-    public UserAccount add(@RequestBody UserAccount userAccount) {
-        return userAccountManager.save(userAccount);
+    public UserAccountDTO add(@RequestBody UserAccountDTO userAccountDTO) {
+        return userAccountManager.save(userAccountDTO);
     }
 //
 //    @PutMapping

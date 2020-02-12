@@ -3,9 +3,11 @@ package pl.studia.android.skyscanner.backend.kiwi.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Date;
+
+import lombok.*;
 
 @Getter
 @Setter
@@ -20,10 +22,10 @@ public class PostAttr {
     String flyTo;
     @JsonProperty("date_from")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY")
-    LocalDate dateFrom;
+    Date dateFrom;
     @JsonProperty("date_to")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY")
-    LocalDate dateTo;
+    Date dateTo;
     @JsonProperty("direct_flights")
     Boolean directFlights;
     Integer passengers;

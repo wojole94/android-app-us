@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import pl.studia.android.skyscanner.backend.db.model.UserAccount;
+
+import pl.studia.android.skyscanner.backend.db.model.UserAccountDTO;
 import pl.studia.android.skyscanner.backend.db.repository.UserAccountRepository;
 
 import java.util.List;
@@ -19,32 +20,32 @@ public class UserAccountManager {
         this.userAccountRepository = userAccountRepository;
     }
 
-    public Optional<UserAccount> findById(String email){
+    public Optional<UserAccountDTO> findById(String email){
         return userAccountRepository.findById(email);
     }
 
-    public List<UserAccount> findAll(){
+    public List<UserAccountDTO> findAll(){
         return userAccountRepository.findAll();
     }
 
-    public UserAccount save(UserAccount userAccount){
-        return userAccountRepository.save(userAccount);
+    public UserAccountDTO save(UserAccountDTO userAccountDTO){
+        return userAccountRepository.save(userAccountDTO);
     }
 
 
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDb(){
-        UserAccount userAccount = new UserAccount();
-        userAccount.setFirstName("Jan");
-        userAccount.setLastName("Kowalski");
-        userAccount.setEmail("jan@web.pl");
-        userAccount.setPassword("jan1");
-        save(userAccount);
-        userAccount.setFirstName("Janusz");
-        userAccount.setLastName("Programowania");
-        userAccount.setEmail("janusz@web.pl");
-        userAccount.setPassword("janusz1");
-        save(userAccount);
+        UserAccountDTO userAccountDTO = new UserAccountDTO();
+        userAccountDTO.setFirstName("Jan");
+        userAccountDTO.setLastName("Kowalski");
+        userAccountDTO.setEmail("jan@web.pl");
+        userAccountDTO.setPassword("jan1");
+        save(userAccountDTO);
+        userAccountDTO.setFirstName("Janusz");
+        userAccountDTO.setLastName("Programowania");
+        userAccountDTO.setEmail("janusz@web.pl");
+        userAccountDTO.setPassword("janusz1");
+        save(userAccountDTO);
     }
 }

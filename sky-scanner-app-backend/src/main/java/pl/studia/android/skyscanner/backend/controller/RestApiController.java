@@ -1,12 +1,13 @@
 package pl.studia.android.skyscanner.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
 import pl.studia.android.skyscanner.backend.model.ModelRepository;
 import pl.studia.android.skyscanner.backend.model.TestModelClass;
+
 import java.util.List;
+
 import javax.validation.Valid;
 
 
