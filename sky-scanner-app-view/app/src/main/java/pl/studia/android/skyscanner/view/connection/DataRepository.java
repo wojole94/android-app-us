@@ -11,6 +11,7 @@ public interface DataRepository {
     public Map<Integer, ProfileData> getProfiles(UserData user);
     public ProfileData addProfile(UserData user, ProfileData profile);
     public List<String> getCitiesList();
+    public void removeProfile(UserData user, ProfileData profile);
     public Map<String, List<String>> getCountries();
 
 }

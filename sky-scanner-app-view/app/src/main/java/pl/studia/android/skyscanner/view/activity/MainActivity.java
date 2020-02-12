@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -39,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
         dataAccess = HashMapDataRepository.getInstance();
         items = dataAccess.getProfiles(user);
         buildTabsList(items);
-
-
     }
 
     @Override
@@ -49,14 +46,11 @@ public class MainActivity extends AppCompatActivity {
         scrollViewgroup.removeAllViews();
         items = dataAccess.getProfiles(user);
         buildTabsList(items);
+
     }
-
-
 
     private void buildTabsList(Map<Integer, ProfileData> items){
 
-        //TODO Transform to stream and get proper id to identify which tab coresponds to which data
-        //TODO Maybe change data storage to Map that will contain ID?
         for (Map.Entry<Integer,ProfileData> entry : items.entrySet()) {
             final View singleFrame = getLayoutInflater().inflate(
                     R.layout.frame_icon_caption, null);
@@ -95,5 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 ft.commit();
             }
         });
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        AddTabFragment addTabFragment = AddTabFragment.newInstance();
+        ft.replace(R.id.tab_holder, addTabFragment);
+        ft.commit();
     }
 }

@@ -17,7 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
+import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.UserData;
+import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
 
 
 public class AddTabFragment extends Fragment {

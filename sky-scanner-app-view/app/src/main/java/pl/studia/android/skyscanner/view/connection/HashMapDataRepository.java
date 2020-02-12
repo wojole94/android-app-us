@@ -1,12 +1,9 @@
 package pl.studia.android.skyscanner.view.connection;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
@@ -46,7 +43,7 @@ public class HashMapDataRepository implements DataRepository{
         if (profilesList == null){
             profilesList = new HashMap<>();
         }
-        profilesList.put(profile.hashCode(),profile);
+        profilesList.put(profile.getId(),profile);
         dataSource.put(user, profilesList);
 
         return profile;
@@ -55,6 +52,7 @@ public class HashMapDataRepository implements DataRepository{
     @Override
     public List<String> getCitiesList() {
         LinkedList<String> citiesSet = new LinkedList<>();
+        citiesSet.add("NONE");
         citiesSet.add("KTW");
         citiesSet.add("IEV");
         citiesSet.add("KRA");
@@ -77,6 +75,16 @@ public class HashMapDataRepository implements DataRepository{
 
         return citiesSet.stream().sorted((String::compareTo)).collect(Collectors.toList());
     }
+
+    @Override
+    public void removeProfile(UserData user, ProfileData profile) {
+        Map<Integer, ProfileData> profilesList = dataSource.get(user);
+        if (profilesList != null){
+            profilesList.remove(profile.getId());
+        }
+    }
+
+
     @Override
     public Map<String, List<String>> getCountries() {
         return null;

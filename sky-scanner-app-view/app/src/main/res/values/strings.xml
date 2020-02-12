@@ -12,9 +12,11 @@
 
     <string name="adults_count_text">Dorośli</string>
     <string name="childs_count_text">Dzieci</string>
-    <string name="departure_loc_text">Miasto odlotu</string>
-    <string name="arrival_loc_text">Miasto przylotu</string>
-    <string name="date_range_text">Zakres przeszukiwanych dat</string>
+    <string name="departure_loc_text">Lotnisko odlotu</string>
+    <string name="arrival_loc_text">Lotnisko przylotu</string>
+    <string name="date_range_text">Okres wylotu</string>
+    <string name="date_range_from_text">Okres od</string>
+    <string name="date_range_to_text">Okres do</string>
     <string name="max_transfers_text">Maksymalna liczba przesiadek</string>
     <string name="max_cost_text">Maksymalna oczekiwana cena</string>
     <string name="just_weekends_text">Szukaj tylko lotów weekendowych</string>

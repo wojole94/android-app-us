@@ -32,7 +32,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="0" />
             </LinearLayout>
         </TableRow>
@@ -59,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="0" />
             </LinearLayout>
         </TableRow>
@@ -112,28 +110,95 @@
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/TVdates"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/date_range_text" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
 
-                <EditText
-                    android:id="@+id/ETdates"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="" />
+                        <TextView
+                            android:id="@+id/TVdates"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/date_range_text"
+                            android:textAlignment="center" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <TextView
+                            android:id="@+id/TVfromLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/date_range_from_text"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:id="@+id/TVtoLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/date_range_to_text"
+                            android:textAlignment="center"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <ImageButton
+                            android:id="@+id/BdateFrom"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/calendar_512"
+                            android:text="Button" />
+
+
+                        <ImageButton
+                            android:id="@+id/BdateTo"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:src="@drawable/calendar_512"
+                            android:scaleType="fitCenter"
+                            android:text="Button" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <EditText
+                            android:id="@+id/ETdateFrom"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+
+                        <EditText
+                            android:id="@+id/ETdateTo"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                    </TableRow>
+
+                </TableLayout>
+
             </LinearLayout>
         </TableRow>
         <TableRow
@@ -158,7 +223,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="0" />
             </LinearLayout>
         </TableRow>
@@ -184,7 +248,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="1000" />
             </LinearLayout>
         </TableRow>

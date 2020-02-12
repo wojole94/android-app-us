@@ -2,6 +2,7 @@ package pl.studia.android.skyscanner.view.datamodel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,8 @@ import lombok.Setter;
 public class ProfileData implements Serializable {
 
     private static final long serialVersionUID = -828333982958927658L;
-
+    private static AtomicInteger ID_COUNTER = new AtomicInteger(0);
+    Integer id;
     Integer adultsCount;
     Integer childCount;
     String departCity;
@@ -23,6 +25,7 @@ public class ProfileData implements Serializable {
     Boolean justWeekends;
 
     public ProfileData(){
+        this.id = ID_COUNTER.incrementAndGet();
         this.adultsCount = new Integer(1);
         this.childCount = new Integer(0);
         this.departCity = "NONE";
