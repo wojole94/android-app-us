@@ -1,11 +1,9 @@
 package pl.studia.android.skyscanner.backend.db.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.*;
 
@@ -28,6 +26,8 @@ public class SearchParametersDTO {
     @JoinColumn(name="fk_user_account")
     UserAccountDTO userAccountDTO;
 
+    @Column(name="app_id")
+    Integer appId;
     @Column(name="fly_from")
     String flyFrom;
     @Column(name="fly_to")

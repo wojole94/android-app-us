@@ -2,12 +2,14 @@ package pl.studia.android.skyscanner.backend.mapping;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import pl.studia.android.skyscanner.backend.connector.KiwiConnection;
+import pl.studia.android.skyscanner.backend.db.manager.SearchParametersManager;
 import pl.studia.android.skyscanner.backend.db.manager.UserAccountManager;
 import pl.studia.android.skyscanner.backend.db.model.SearchParametersDTO;
 import pl.studia.android.skyscanner.backend.db.model.UserAccountDTO;
-import pl.studia.android.skyscanner.backend.db.repository.SearchParamtersRepository;
+import pl.studia.android.skyscanner.backend.db.repository.SearchParametersRepository;
 import pl.studia.android.skyscanner.backend.kiwi.model.Flights;
 import pl.studia.android.skyscanner.backend.kiwi.model.flightPost.SearchDetail;
 import pl.studia.android.skyscanner.backend.model.AppUser;
@@ -22,19 +24,28 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Component
+@NoArgsConstructor
+@AllArgsConstructor
 public class DataExtractor {
 
     @Autowired
-    SearchParamtersRepository profilesRepository;
+    SearchParametersRepository profilesRepository;
+
+    @Autowired
+    SearchParametersManager profilesManager;
 
     @Autowired
     UserAccountManager userManager;
 
 
+
     public SearchResult getBestFlightFor(SearchParameters searchParameters) throws IOException, InterruptedException {
         SearchResult returnResponse = null;
         KiwiConnection connection = new KiwiConnection();
-        DataExtractor dataExtractor = new DataExtractor();
         SearchParametersDTOMapper mapper = Mappers.getMapper(SearchParametersDTOMapper.class);
         List<SearchDetail[]> searchDetailsList =
             connection.performSearchRequest(mapper.mapToSearchParametersDTO(searchParameters));
@@ -60,24 +71,28 @@ public class DataExtractor {
 
     public List<SearchResult> getCurrentProfileStatus(AppUser user){
         UserAccountDTOMapper mapper = Mappers.getMapper(UserAccountDTOMapper.class);
-        Collection<SearchParametersDTO> foundProfiles =  profilesRepository.findAllProfiles(mapper.mapToUserAccountDTO(user));
+        Collection<SearchParametersDTO> foundProfiles =  profilesManager.findAllProfilesFor(mapper.mapToUserAccountDTO(user));
         return foundProfiles.stream().map(o -> {
             SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
             return searchParametersMapper.mapToSearchResults(o);
         }).collect(Collectors.toList());
     }
 
-    public SearchResult addNewProfile(AppUser user, SearchParameters searchParameters){
+    public SearchResult addNewProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
          SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
          UserAccountDTO userAccountDTO = userManager.findById(user.getUserName()).get();
          SearchParametersDTO searchParametersDTO = searchParametersMapper.mapToSearchParametersDTO(searchParameters);
          searchParametersDTO.setUserAccountDTO(userAccountDTO);
 
-         //Add querying action
-         //this.getBestFlightFor(searchParameters);p
-
+         //Add querying action and setting results
+        SearchResult result = getBestFlightFor(searchParameters);
+        searchParametersDTO.setExactArrivalDate(result.getExactArrivalDate());
+        searchParametersDTO.setExactDepartureDate(result.getExactDepartureDate());
+        searchParametersDTO.setCurrentPrice(result.getCurrentPrice());
+        result = searchParametersMapper.mapToSearchResults(searchParametersDTO);
         profilesRepository.saveAndFlush(searchParametersDTO);
-        return null;
+
+        return result;
     }
 
 

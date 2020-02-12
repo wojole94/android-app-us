@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import pl.studia.android.skyscanner.backend.connector.KiwiConnection;
@@ -33,31 +34,39 @@ public class FlightRestController {
      * @throws IOException
      * @throws InterruptedException
      */
+
+    @Autowired
+    DataExtractor dataExtractor;
+
     @PostMapping("/getBestPriceFlight")
     public SearchResult getFlights(@Valid @RequestBody SearchParameters searchParameters) throws IOException, InterruptedException {
-        DataExtractor dataExtractor = new DataExtractor();
         return dataExtractor.getBestFlightFor(searchParameters);
     }
 
-    @PostMapping("/getProfiles")
-    public List<SearchResult> getProfiles(@Valid @RequestBody AppUser appUser) throws IOException,
-        InterruptedException {
-        DataExtractor dataExtractor = new DataExtractor();
-        List<SearchResult> returnResponse = dataExtractor.getCurrentProfileStatus(appUser);
+    @GetMapping("/getProfiles")
+    public List<SearchResult> getProfiles(@Valid @RequestHeader("username") String username,
+                                          @Valid @RequestHeader("password") String password)
+        throws IOException, InterruptedException {
+        AppUser user = new AppUser(username, password);
+        List<SearchResult> returnResponse = dataExtractor.getCurrentProfileStatus(user);
         return returnResponse;
     }
 
     @PutMapping("/updateProfiles")
-    public SearchResult updateProfile(@Valid @RequestBody SearchParameters searchParameters) throws IOException,
-        InterruptedException {
-        DataExtractor dataExtractor = new DataExtractor();
-       // List<SearchResult> returnResponse = dataExtractor.addNewProfile(appUser);
-        return null;
+    public SearchResult updateProfile(@Valid @RequestHeader("username") String username,
+                                      @Valid @RequestHeader("password") String password,
+                                      @Valid @RequestBody SearchParameters searchParameters)
+        throws IOException, InterruptedException {
+        AppUser user = new AppUser(username, password);
+        SearchResult returnResponse = dataExtractor.addNewProfile(user, searchParameters);
+        return returnResponse;
     }
 
     @DeleteMapping("/removeProfile")
-    public SearchParameters removeProfiles(@Valid @RequestBody SearchParameters searchParameters) throws IOException,
-        InterruptedException {
+    public SearchParameters removeProfiles(@Valid @RequestHeader("username") String username,
+                                           @Valid @RequestHeader("password") String password,
+                                           @Valid @RequestBody SearchParameters searchParameters)
+        throws IOException, InterruptedException {
         return searchParameters;
     }
 }

@@ -17,6 +17,8 @@ import lombok.ToString;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SearchParameters {
+    @JsonProperty("app_id")
+    private Integer app_id;
     @JsonProperty("city_from")
     private String cityFrom;
     @JsonProperty("city_to")

@@ -3,7 +3,9 @@ package pl.studia.android.skyscanner.backend.db.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import pl.studia.android.skyscanner.backend.db.model.UserAccountDTO;
 import pl.studia.android.skyscanner.backend.db.repository.UserAccountRepository;

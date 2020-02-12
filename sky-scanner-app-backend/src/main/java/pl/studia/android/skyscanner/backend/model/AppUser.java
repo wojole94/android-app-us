@@ -10,6 +10,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AppUser {
     @JsonProperty("user_name")

@@ -8,7 +8,6 @@ import pl.studia.android.skyscanner.backend.model.SearchResult;
 
 @Mapper
 public interface SearchParametersDTOMapper {
-    @BeanMapping(ignoreByDefault = true)
     @Mappings({
         @Mapping(source = "cityFrom", target = "flyFrom"),
         @Mapping(source = "cityTo", target = "flyTo"),
@@ -20,8 +19,8 @@ public interface SearchParametersDTOMapper {
         @Mapping(source = "maximumPrice", target = "maximumPrice"),
         @Mapping(source = "onlyWeekendFlights", target = "onlyWeekends")
     })
-    public abstract SearchParametersDTO mapToSearchParametersDTO(SearchParameters searchResult);
+    SearchParametersDTO mapToSearchParametersDTO(SearchParameters searchResult);
 
-    @BeanMapping(ignoreByDefault = true)
-    public abstract SearchResult mapToSearchResults(SearchParametersDTO searchResult);
+    @Mappings({})
+    SearchResult mapToSearchResults(SearchParametersDTO searchResult);
 }
