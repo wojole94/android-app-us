@@ -1,7 +1,10 @@
 package pl.studia.android.skyscanner.backend.mapping;
 
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import pl.studia.android.skyscanner.backend.connector.KiwiConnection;
@@ -17,9 +20,11 @@ import pl.studia.android.skyscanner.backend.model.SearchParameters;
 import pl.studia.android.skyscanner.backend.model.SearchResult;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,42 +36,46 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DataExtractor {
-
     @Autowired
     SearchParametersRepository profilesRepository;
-
     @Autowired
     SearchParametersManager profilesManager;
-
     @Autowired
     UserAccountManager userManager;
 
-
+    private static final Logger log = LoggerFactory.getLogger(DataExtractor.class);
 
     public SearchResult getBestFlightFor(SearchParameters searchParameters) throws IOException, InterruptedException {
-        SearchResult returnResponse = null;
-        KiwiConnection connection = new KiwiConnection();
         SearchParametersDTOMapper mapper = Mappers.getMapper(SearchParametersDTOMapper.class);
-        List<SearchDetail[]> searchDetailsList =
-            connection.performSearchRequest(mapper.mapToSearchParametersDTO(searchParameters));
-        return getBestFlight(searchDetailsList);
+        return getBestFlightFor(mapper.mapToSearchParametersDTO(searchParameters));
     }
 
-    private SearchResult getBestFlight(List<SearchDetail[]> listOfResults) {
+    public SearchResult getBestFlightFor(SearchParametersDTO searchParametersDTO) throws IOException, InterruptedException {
+        KiwiConnection connection = new KiwiConnection();
+        List<SearchDetail[]> searchDetailsList =
+            connection.performSearchRequest(searchParametersDTO);
+        return getBestFlight(searchDetailsList, searchParametersDTO);
+    }
+
+    private SearchResult getBestFlight(List<SearchDetail[]> listOfResults, SearchParametersDTO searchParametersDTO) {
+        SearchParametersDTOMapper mapper = Mappers.getMapper(SearchParametersDTOMapper.class);
+        log.info("Recieved results: {}", listOfResults.size());
         for (SearchDetail[] searchDetailArray : listOfResults) {
             if (searchDetailArray != null && searchDetailArray.length > 0) {
                 Flights flights = new Flights(searchDetailArray);//TODO - narazie zawsze odczytuje jedno połączenie
                 SearchDetail flightWithBestPrice = flights.getFlightWithBestPrice();
-                SearchResult searchResult = new SearchResult();
-                searchResult.setFlyFrom(flightWithBestPrice.getCityFrom());
-                searchResult.setFlyTo(flightWithBestPrice.getCityTo());
+                SearchResult searchResult = mapper.mapToSearchResults(searchParametersDTO);
                 searchResult.setCurrentPrice(flightWithBestPrice.getPrice());
                 searchResult.setExactDepartureDate(LocalDateTime.ofInstant(flightWithBestPrice.getDTimeUTC(), ZoneOffset.UTC));
                 searchResult.setExactArrivalDate(LocalDateTime.ofInstant(flightWithBestPrice.getATimeUTC(), ZoneOffset.UTC));
                 return searchResult;
             }
         }
-        return new SearchResult();
+        SearchResult searchResult = mapper.mapToSearchResults(searchParametersDTO);
+        searchResult.setCurrentPrice(0);
+        searchResult.setExactDepartureDate(LocalDateTime.now());
+        searchResult.setExactArrivalDate(LocalDateTime.now());
+        return searchResult;
     }
 
     public List<SearchResult> getCurrentProfileStatus(AppUser user){
@@ -78,7 +87,7 @@ public class DataExtractor {
         }).collect(Collectors.toList());
     }
 
-    public SearchResult addNewProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
+    public SearchResult upsertProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
          SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
          UserAccountDTO userAccountDTO = userManager.findById(user.getUserName()).get();
          SearchParametersDTO searchParametersDTO = searchParametersMapper.mapToSearchParametersDTO(searchParameters);
@@ -98,12 +107,12 @@ public class DataExtractor {
                 .filter(o -> o.getId() != null ? o.getId().equals(searchParametersDTO.getId()) : false)
                 .findFirst();
         if(!existing.isPresent()){
-            parametersRecord = profilesRepository.saveAndFlush(searchParametersDTO);
+            parametersRecord = profilesRepository.save(searchParametersDTO);
         }
         else {
             SearchParametersDTO existingItem = existing.get();
             searchParametersDTO.setId(existingItem.getId());
-            parametersRecord = profilesRepository.saveAndFlush(searchParametersDTO);
+            parametersRecord = profilesRepository.save(searchParametersDTO);
         }
 
         return searchParametersMapper.mapToSearchResults(parametersRecord);
@@ -118,6 +127,24 @@ public class DataExtractor {
         parametersRecord.setId(null);
 
         return searchParametersMapper.mapToSearchResults(parametersRecord);
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void performDataRefresh() {
+        SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
+        profilesRepository.findAll().stream().forEach(o ->{
+            try {
+                log.info("Performing refresh call for {}", o.getId());
+                SearchResult results = getBestFlightFor(o);
+                SearchParametersDTO updatedRecord = searchParametersMapper.mapToSearchParametersDTO(results);
+                updatedRecord.setUserAccountDTO(userManager.findById(o.getUserAccountDTO().getEmail()).get());
+                profilesRepository.save(updatedRecord);
+            } catch (IOException e) {
+                log.error("Error during getting data from kiwi: ",e);
+            } catch (InterruptedException e) {
+                log.error("Error during getting data from kiwi: ",e);
+            }
+        });
     }
 
 

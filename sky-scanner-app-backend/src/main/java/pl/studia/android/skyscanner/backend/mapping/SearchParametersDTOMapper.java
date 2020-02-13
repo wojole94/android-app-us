@@ -23,4 +23,7 @@ public interface SearchParametersDTOMapper {
 
     @Mappings({})
     SearchResult mapToSearchResults(SearchParametersDTO searchResult);
+
+    @Mappings({})
+    SearchParametersDTO mapToSearchParametersDTO(SearchResult searchResult);
 }
