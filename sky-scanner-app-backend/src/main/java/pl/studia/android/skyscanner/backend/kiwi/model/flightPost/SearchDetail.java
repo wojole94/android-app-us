@@ -58,7 +58,7 @@ import java.util.Map;
 })
 public class SearchDetail implements Serializable {
     private final static long serialVersionUID = -7652916337612379734L;
-    @JsonIgnore
+
     @JsonProperty("id")
     private String id;
     @JsonProperty("route")

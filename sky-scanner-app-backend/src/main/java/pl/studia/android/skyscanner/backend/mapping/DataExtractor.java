@@ -68,6 +68,7 @@ public class DataExtractor {
                 searchResult.setCurrentPrice(flightWithBestPrice.getPrice());
                 searchResult.setExactDepartureDate(LocalDateTime.ofInstant(flightWithBestPrice.getDTimeUTC(), ZoneOffset.UTC));
                 searchResult.setExactArrivalDate(LocalDateTime.ofInstant(flightWithBestPrice.getATimeUTC(), ZoneOffset.UTC));
+                searchResult.setDeepLink(flightWithBestPrice.getDeepLink());
                 return searchResult;
             }
         }

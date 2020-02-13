@@ -46,6 +46,7 @@ public class SearchResult {
     @JsonProperty("arrival_date")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime exactArrivalDate;
-
+    @JsonProperty("deep_link")
+    String deepLink;
 
 }

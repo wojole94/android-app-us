@@ -56,6 +56,8 @@ public class SearchParametersDTO {
     LocalDateTime exactDepartureDate;
     @Column(name = "arrival_date")
     LocalDateTime exactArrivalDate;
+    @Column(name="deep_link")
+    String deepLink;
 
 
 }
