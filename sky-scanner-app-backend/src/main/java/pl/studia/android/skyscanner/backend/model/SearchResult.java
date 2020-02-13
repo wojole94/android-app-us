@@ -18,8 +18,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class SearchResult {
-    @JsonProperty("app_id")
-    Integer appId;
+    @JsonProperty("id")
+    Integer id;
     @JsonProperty("fly_from")
     private String flyFrom;
     @JsonProperty("fly_to")

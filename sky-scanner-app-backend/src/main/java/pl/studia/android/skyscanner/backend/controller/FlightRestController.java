@@ -67,6 +67,9 @@ public class FlightRestController {
                                            @Valid @RequestHeader("password") String password,
                                            @Valid @RequestBody SearchParameters searchParameters)
         throws IOException, InterruptedException {
+
+        AppUser user = new AppUser(username, password);
+        SearchResult returnResponse = dataExtractor.removeProfile(user, searchParameters);
         return searchParameters;
     }
 }

@@ -89,13 +89,36 @@ public class DataExtractor {
         searchParametersDTO.setExactArrivalDate(result.getExactArrivalDate());
         searchParametersDTO.setExactDepartureDate(result.getExactDepartureDate());
         searchParametersDTO.setCurrentPrice(result.getCurrentPrice());
-        result = searchParametersMapper.mapToSearchResults(searchParametersDTO);
-        profilesRepository.saveAndFlush(searchParametersDTO);
+        SearchParametersDTO parametersRecord;
 
-        return result;
+        Optional<SearchParametersDTO> existing =
+            profilesRepository
+                .findAll()
+                .stream()
+                .filter(o -> o.getId() != null ? o.getId().equals(searchParametersDTO.getId()) : false)
+                .findFirst();
+        if(!existing.isPresent()){
+            parametersRecord = profilesRepository.saveAndFlush(searchParametersDTO);
+        }
+        else {
+            SearchParametersDTO existingItem = existing.get();
+            searchParametersDTO.setId(existingItem.getId());
+            parametersRecord = profilesRepository.saveAndFlush(searchParametersDTO);
+        }
+
+        return searchParametersMapper.mapToSearchResults(parametersRecord);
     }
 
+    public SearchResult removeProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
+        SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
+        UserAccountDTO userAccountDTO = userManager.findById(user.getUserName()).get();
 
+        SearchParametersDTO parametersRecord = searchParametersMapper.mapToSearchParametersDTO(searchParameters);
+        profilesRepository.delete(parametersRecord);
+        parametersRecord.setId(null);
+
+        return searchParametersMapper.mapToSearchResults(parametersRecord);
+    }
 
 
 }

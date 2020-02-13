@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(name="search_parameters")
 public class SearchParametersDTO {
 
-    @Setter(AccessLevel.NONE)
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +26,6 @@ public class SearchParametersDTO {
     @JoinColumn(name="fk_user_account")
     UserAccountDTO userAccountDTO;
 
-    @Column(name="app_id")
-    Integer appId;
     @Column(name="fly_from")
     String flyFrom;
     @Column(name="fly_to")
