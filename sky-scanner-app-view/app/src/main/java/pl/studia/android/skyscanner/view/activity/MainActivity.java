@@ -22,7 +22,7 @@ import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
 public class MainActivity extends AppCompatActivity {
     static final Integer ADD_TAB_ID = -1;
     @BindView(R.id.viewgroup) ViewGroup scrollViewgroup;
-    DataRepository dataAccess;
+    DataRepository dataAccess = HashMapDataRepository.getInstance();
     Map<Integer, ProfileData> items;
     UserData user;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         //Fake user for alpha version
         user = UsersServiceMock.getSampleUser();
         //Call for already assigned profiles
-        dataAccess = HashMapDataRepository.getInstance();
+
         items = dataAccess.getProfiles(user);
         buildTabsList(items);
     }
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         for (Map.Entry<Integer,ProfileData> entry : items.entrySet()) {
             final View singleFrame = getLayoutInflater().inflate(
                     R.layout.frame_icon_caption, null);
-            singleFrame.setId(entry.getKey());
+            singleFrame.setId(entry.getValue().getId());
             TextView caption = singleFrame.findViewById(R.id.caption);
 
             scrollViewgroup.addView(singleFrame);

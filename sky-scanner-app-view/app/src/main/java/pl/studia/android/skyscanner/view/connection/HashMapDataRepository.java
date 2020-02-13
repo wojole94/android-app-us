@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
@@ -13,6 +14,7 @@ public class HashMapDataRepository implements DataRepository{
     //Only mocked data structure
     Map<UserData, Map<Integer,ProfileData>> dataSource;
     static HashMapDataRepository INSTANCE;
+    private static AtomicInteger ID_COUNTER = new AtomicInteger(0);
 
     private HashMapDataRepository(){
         dataSource = new HashMap<>();
@@ -43,6 +45,7 @@ public class HashMapDataRepository implements DataRepository{
         if (profilesList == null){
             profilesList = new HashMap<>();
         }
+        profile.setId(ID_COUNTER.incrementAndGet());
         profilesList.put(profile.getId(),profile);
         dataSource.put(user, profilesList);
 

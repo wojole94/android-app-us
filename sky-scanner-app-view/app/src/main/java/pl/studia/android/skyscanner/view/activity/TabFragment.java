@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.DataRepository;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
@@ -42,6 +43,7 @@ public class TabFragment extends Fragment {
     @BindView(R.id.Bdel) Button Bdel;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    DataRepository dataRepository = HashMapDataRepository.getInstance();
 
     public static TabFragment newInstance(ProfileData data){
         TabFragment fragment = new TabFragment();
@@ -97,7 +99,7 @@ public class TabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Setting new fragment at tab
-                HashMapDataRepository.getInstance().removeProfile(UsersServiceMock.getSampleUser(),data);
+                dataRepository.removeProfile(UsersServiceMock.getSampleUser(),data);
                 main.onResume();
             }
         });

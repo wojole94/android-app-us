@@ -44,13 +44,14 @@ public class EditFormActivity extends AppCompatActivity {
 
     final EditFormActivity context = this;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    DataRepository dataRepo = HashMapDataRepository.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_form_layout);
         ButterKnife.bind(this);
-        DataRepository dataRepo = HashMapDataRepository.getInstance();
+
         List<String> citiesList =  dataRepo.getCitiesList();
         Bundle extras = getIntent().getExtras();
         ProfileData data;
@@ -120,7 +121,7 @@ public class EditFormActivity extends AppCompatActivity {
                     data.setStartDate(dateFormat.parse(ETdateFrom.getText().toString()));
                     data.setEndDate(dateFormat.parse(ETdateTo.getText().toString()));
 
-                    HashMapDataRepository.getInstance().addProfile(UsersServiceMock.getSampleUser(), data);
+                    dataRepo.addProfile(UsersServiceMock.getSampleUser(), data);
                     context.finish();
 
 
