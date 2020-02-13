@@ -1,5 +1,7 @@
 package pl.studia.android.skyscanner.view.datamodel;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,6 +16,7 @@ public class ProfileData implements Serializable {
     private static final long serialVersionUID = -828333982958927658L;
     private static AtomicInteger ID_COUNTER = new AtomicInteger(0);
     Integer id;
+    @SerializedName("adults")
     Integer adultsCount;
     Integer childCount;
     String departCity;

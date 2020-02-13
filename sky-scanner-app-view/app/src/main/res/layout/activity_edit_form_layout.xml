@@ -289,6 +289,13 @@
             android:text="@string/save_button" />
 
         <Button
+            android:id="@+id/buttonTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ButtonTest" />
+
+        <Button
             android:id="@+id/Bcancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

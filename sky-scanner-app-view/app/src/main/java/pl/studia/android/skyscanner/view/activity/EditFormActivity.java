@@ -16,16 +16,24 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.ApiClient;
+import pl.studia.android.skyscanner.view.connection.ApiInterface;
 import pl.studia.android.skyscanner.view.connection.DataRepository;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
+import pl.studia.android.skyscanner.view.connection.RestApiDataRepository;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
+import pl.studia.android.skyscanner.view.datamodel.UserData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditFormActivity extends AppCompatActivity {
     @BindView(R.id.Bcancel) Button Bcancel;
@@ -41,6 +49,7 @@ public class EditFormActivity extends AppCompatActivity {
     @BindView(R.id.ETdateTo) EditText ETdateTo;
     @BindView(R.id.BdateFrom) ImageButton BdateFrom;
     @BindView(R.id.BdateTo) ImageButton BdateTo;
+    @BindView(R.id.buttonTest) Button buttonTest;
 
     final EditFormActivity context = this;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -79,6 +88,7 @@ public class EditFormActivity extends AppCompatActivity {
         ETdateFrom.setText(dateFormat.format(data.getStartDate()));
         ETdateTo.setText(dateFormat.format(data.getEndDate()));
 
+
         BdateFrom.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation") @Override
             public void onClick(View v) {
@@ -110,6 +120,7 @@ public class EditFormActivity extends AppCompatActivity {
                 //Setting new fragment at tab
                 //Taking data from form and create profile
                 try{
+
                     data.setDepartCity(SdepLoc.getSelectedItem().toString());
                     data.setArrivalCity(SarrLoc.getSelectedItem().toString());
                     data.setAdultsCount(Integer.parseInt(ETadults.getText().toString()));
@@ -131,6 +142,29 @@ public class EditFormActivity extends AppCompatActivity {
                 }
             }
         });
+
+        buttonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                Call<List<UserData>> call = apiInterface.getUsers();
+                call.enqueue(new Callback<List<UserData>>() {
+                    @Override
+                    public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
+                        int status = response.code();
+                        ArrayList<UserData> questionModels = (ArrayList<UserData>) response.body();
+                        System.out.println(questionModels.toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<UserData>> call, Throwable t) {
+                        int i=0;
+                    }
+                });
+            }
+        });
+
+
 
 
     }

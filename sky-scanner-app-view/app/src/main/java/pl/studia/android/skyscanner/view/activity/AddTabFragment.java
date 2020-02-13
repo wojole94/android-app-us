@@ -13,13 +13,21 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.ApiClient;
+import pl.studia.android.skyscanner.view.connection.ApiInterface;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.UserData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AddTabFragment extends Fragment {
@@ -57,6 +65,7 @@ public class AddTabFragment extends Fragment {
             public void onClick(View v) {
                 Intent editIntent = new Intent(main.getBaseContext(), EditFormActivity.class);
                 main.startActivity(editIntent);
+
             }
         });
 

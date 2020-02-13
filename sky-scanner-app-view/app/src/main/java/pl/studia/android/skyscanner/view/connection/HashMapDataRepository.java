@@ -1,5 +1,7 @@
 package pl.studia.android.skyscanner.view.connection;
 
+import com.google.gson.JsonObject;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.stream.Collectors;
 
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.UserData;
+import retrofit2.Call;
 
 public class HashMapDataRepository implements DataRepository{
     //Only mocked data structure
@@ -87,6 +90,11 @@ public class HashMapDataRepository implements DataRepository{
 
     @Override
     public Map<String, List<String>> getCountries() {
+        return null;
+    }
+
+    @Override
+    public Call<UserData> getUser(String email) {
         return null;
     }
 

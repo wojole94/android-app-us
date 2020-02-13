@@ -8,8 +8,8 @@ public class UsersServiceMock {
     public static UserData getSampleUser() {
         if(userInstance == null) {
             UserData user = new UserData();
-            user.setPassword("xyz");
-            user.setUsername("login1");
+//            user.setPassword("xyz");
+//            user.setUsername("login1");
             userInstance = user;
         }
         return userInstance;

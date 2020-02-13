@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Map;
@@ -14,9 +16,15 @@ import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
 import pl.studia.android.skyscanner.view.connection.DataRepository;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
+import pl.studia.android.skyscanner.view.connection.RestApiDataRepository;
+import pl.studia.android.skyscanner.view.connection.RestApiImplementation;
+import pl.studia.android.skyscanner.view.connection.RetrofitClientInstance;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.UserData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
         dataAccess = HashMapDataRepository.getInstance();
         items = dataAccess.getProfiles(user);
         buildTabsList(items);
+
+//        //TODO test
+//        DataRepository apiService = RetrofitClientInstance.getRetrofitInstance().create(DataRepository.class);
+//        UserData userData = RestApiImplementation.getInstance().getUser("janusz@web.pl");
+////        Call<UserData> call = apiService.getUser("janusz@web.pl");
+////        call.enqueue(new Callback<UserData>() {
+////            @Override
+////            public void onResponse(Call<UserData> call, Response<UserData> response) {
+////                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+////            }
+////
+////            @Override
+////            public void onFailure(Call<UserData> call, Throwable t) {
+////
+////            }
+////        });
+//int i=0;
     }
 
     @Override
