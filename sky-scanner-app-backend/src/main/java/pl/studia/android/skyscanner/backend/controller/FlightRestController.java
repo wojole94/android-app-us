@@ -35,8 +35,8 @@ public class FlightRestController {
     }
 
     @GetMapping("/getProfiles")
-    public List<SearchResult> getProfiles(@Valid @RequestHeader("username") String username,
-                                          @Valid @RequestHeader("password") String password)
+    public List<SearchResult> getProfiles(@Valid @RequestParam("username") String username,
+                                          @Valid @RequestParam("password") String password)
         throws IOException, InterruptedException {
         AppUser user = new AppUser(username, password);
         List<SearchResult> returnResponse = dataExtractor.getCurrentProfileStatus(user);
@@ -44,8 +44,8 @@ public class FlightRestController {
     }
 
     @PutMapping("/updateProfiles")
-    public SearchResult updateProfile(@Valid @RequestHeader("username") String username,
-                                      @Valid @RequestHeader("password") String password,
+    public SearchResult updateProfile(@Valid @RequestParam("username") String username,
+                                      @Valid @RequestParam("password") String password,
                                       @Valid @RequestBody SearchParameters searchParameters)
         throws IOException, InterruptedException {
         AppUser user = new AppUser(username, password);
@@ -54,8 +54,8 @@ public class FlightRestController {
     }
 
     @DeleteMapping("/removeProfile")
-    public SearchParameters removeProfiles(@Valid @RequestHeader("username") String username,
-                                           @Valid @RequestHeader("password") String password,
+    public SearchParameters removeProfiles(@Valid @RequestParam("username") String username,
+                                           @Valid @RequestParam("password") String password,
                                            @Valid @RequestBody SearchParameters searchParameters)
         throws IOException, InterruptedException {
 
