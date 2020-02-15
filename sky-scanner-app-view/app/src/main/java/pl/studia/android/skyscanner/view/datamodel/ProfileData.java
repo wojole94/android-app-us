@@ -13,48 +13,36 @@ import lombok.Setter;
 @Setter
 public class ProfileData implements Serializable {
 
-    private static final long serialVersionUID = -828333982958927658L;
-
+    private static final long serialVersionUID = 4014359946693362478L;
     Integer id;
+    @SerializedName("adults_number")
     Integer adultsCount;
+    @SerializedName("children_number")
     Integer childCount;
+    @SerializedName("city_from")
     String departCity;
+    @SerializedName("city_to")
     String arrivalCity;
+    @SerializedName("search_start_date")
     Date startDate;
+    @SerializedName("search_end_date")
     Date endDate;
+    @SerializedName("transfers_number")
     Integer transfersCount;
+    @SerializedName("maximum_price")
     Double maxPrice;
+    @SerializedName("only_weekend_flights")
     Boolean justWeekends;
-
-    @SerializedName("adults")
-    private Long mAdults;
-    @SerializedName("arrival_date")
-    private String mArrivalDate;
-    @SerializedName("children")
-    private Long mChildren;
-    @SerializedName("date_from")
-    private String mDateFrom;
-    @SerializedName("date_to")
-    private String mDateTo;
     @SerializedName("deep_link")
-    private String mDeepLink;
+    private String deepLink;
+    @SerializedName("arrival_date")
+    private String arrivalDate;
     @SerializedName("departure_date")
-    private String mDepartureDate;
-    @SerializedName("fly_from")
-    private String mFlyFrom;
-    @SerializedName("fly_to")
-    private String mFlyTo;
-    @SerializedName("id")
-    private Object mId;
-    @SerializedName("only_weekends")
-    private Boolean mOnlyWeekends;
+    private String departureDate;
     @SerializedName("price")
-    private Long mPrice;
-    @SerializedName("price_to")
-    private Long mPriceTo;
-    @SerializedName("transfers_count")
-    private Long mTransfersCount;
-
+    private Integer price;
+    @SerializedName("real_transfers_number")
+    private Integer realTransfersNumber;
 
 
     public ProfileData(){
@@ -67,6 +55,11 @@ public class ProfileData implements Serializable {
         this.transfersCount = new Integer(0);
         this.maxPrice = new Double(1000);
         this.justWeekends = false;
+        this.arrivalDate = "2019-08-01";
+        this.departureDate = "2051-08-01";
+        this.deepLink = "http://google.pl";
+        this.price = 251;
+        this.realTransfersNumber = 1;
     }
 
     @Override

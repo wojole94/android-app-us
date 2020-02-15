@@ -14,22 +14,20 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.ActiveConnection;
 import pl.studia.android.skyscanner.view.connection.DataRepository;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
 import pl.studia.android.skyscanner.view.connection.RetrofitClientInstance;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.ProfileRequest;
-import pl.studia.android.skyscanner.view.datamodel.ProfileResponse;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,10 +49,7 @@ public class EditFormActivity extends AppCompatActivity {
     @BindView(R.id.BdateTo) ImageButton BdateTo;
 
     final EditFormActivity context = this;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");//for mock
-    SimpleDateFormat dateParser = new SimpleDateFormat("dd-MM-yyyy");
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     DataRepository dataRepo = HashMapDataRepository.getInstance();
 
     @Override
@@ -122,45 +117,53 @@ public class EditFormActivity extends AppCompatActivity {
                 //Setting new fragment at tab
                 //Taking data from form and create profile
                 try{
-//                    data.setDepartCity(SdepLoc.getSelectedItem().toString());
-//                    data.setArrivalCity(SarrLoc.getSelectedItem().toString());
-//                    data.setAdultsCount(Integer.parseInt(ETadults.getText().toString()));
-//                    data.setChildCount(Integer.parseInt(ETchilds.getText().toString()));
-//                    data.setTransfersCount(Integer.parseInt(ETmaxTrans.getText().toString()));
-//                    data.setMaxPrice(Double.parseDouble(ETmaxCost.getText().toString()));
-//                    data.setJustWeekends(CBweekends.isChecked());
-//                    data.setStartDate(dateFormat.parse(ETdateFrom.getText().toString()));
-//                    data.setEndDate(dateFormat.parse(ETdateTo.getText().toString()));
+                    data.setDepartCity(SdepLoc.getSelectedItem().toString());
+                    data.setArrivalCity(SarrLoc.getSelectedItem().toString());
+                    data.setAdultsCount(Integer.parseInt(ETadults.getText().toString()));
+                    data.setChildCount(Integer.parseInt(ETchilds.getText().toString()));
+                    data.setTransfersCount(Integer.parseInt(ETmaxTrans.getText().toString()));
+                    data.setMaxPrice(Double.parseDouble(ETmaxCost.getText().toString()));
+                    data.setJustWeekends(CBweekends.isChecked());
+                    data.setStartDate(dateFormat.parse(ETdateFrom.getText().toString()));
+                    data.setEndDate(dateFormat.parse(ETdateTo.getText().toString()));
 
-                    ProfileRequest profileRequest = new ProfileRequest();
-                    profileRequest.setCityFrom(SdepLoc.getSelectedItem().toString());
-                    profileRequest.setCityTo(SarrLoc.getSelectedItem().toString());
-                    profileRequest.setAdultsNumber(Integer.parseInt(ETadults.getText().toString()));
-                    profileRequest.setChildrenNumber(Integer.parseInt(ETchilds.getText().toString()));
-                    profileRequest.setTransfersNumber(Integer.parseInt(ETmaxTrans.getText().toString()));
-                    profileRequest.setMaximumPrice(Double.parseDouble(ETmaxCost.getText().toString()));
-                    profileRequest.setOnlyWeekendFlights(CBweekends.isChecked());
-                    profileRequest.setSearchStartDate(dateFormatter.format(dateParser.parse(ETdateFrom.getText().toString())));
-                    profileRequest.setSearchEndDate(dateFormatter.format(dateParser.parse(ETdateTo.getText().toString())));
+                    dataRepo.addProfile(UsersServiceMock.getSampleUser(), data);
 
-                    DataRepository service = RetrofitClientInstance.getRetrofitInstance().create(DataRepository.class);
-                    Call<ProfileResponse> call = service.addProfile("jan@web.pl", "jan1", profileRequest);
-                    call.enqueue(new Callback<ProfileResponse>(){
+//                    ProfileRequest profileRequest = new ProfileRequest();
+//                    profileRequest.setCityTo(SdepLoc.getSelectedItem().toString());
+//                    profileRequest.setCityFrom(SarrLoc.getSelectedItem().toString());
+//                    profileRequest.setAdultsNumber(Integer.parseInt(ETadults.getText().toString()));
+//                    profileRequest.setChildrenNumber(Integer.parseInt(ETchilds.getText().toString()));
+//                    profileRequest.setTransfersNumber(Integer.parseInt(ETmaxTrans.getText().toString()));
+//                    profileRequest.setMaximumPrice(Double.parseDouble(ETmaxCost.getText().toString()));
+//                    profileRequest.setOnlyWeekendFlights(CBweekends.isChecked());
+//                    profileRequest.setSearchStartDate(ETdateFrom.getText().toString());
+//                    profileRequest.setSearchEndDate(ETdateTo.getText().toString());
+//
+//
+//                    DataRepository service = RetrofitClientInstance.getRetrofitInstance().create(DataRepository.class);
+//                    Call<ProfileData> call = service.addProfile(ActiveConnection.getInstance().getUserData().getEmail(), ActiveConnection.getInstance().getUserData().getPassword(), profileRequest);
+//                    call.enqueue(new Callback<ProfileData>(){
+//
+//                        @Override
+//                        public void onResponse(Call<ProfileData> call, Response<ProfileData> response) {
+//                            Toast.makeText(getApplicationContext(), "Zapisano nowe parametry wyszukiwania!", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<ProfileData> call, Throwable t) {
+//                            Toast.makeText(getApplicationContext(), "Wystąpił błąd! Nie zapisano wprowadzonych parametrów wyszukiwania. Spróbuj ponownie.", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
 
-                        @Override
-                        public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                            Toast.makeText(getApplicationContext(), "Zapisano nowe parametry wyszukiwania!", Toast.LENGTH_LONG).show();
-                        }
 
-                        @Override
-                        public void onFailure(Call<ProfileResponse> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Wystąpił błąd! Nie zapisano wprowadzonych parametrów wyszukiwania. Spróbuj ponownie.", Toast.LENGTH_LONG).show();
-                        }
-                    });
+
+
+
                     context.finish();
 
 
-                } catch (ParseException ex){
+                } catch (Exception ex){
                     Toast.makeText(getApplicationContext(), "Nieprawidłowy format daty!",
                             Toast.LENGTH_LONG)
                             .show();

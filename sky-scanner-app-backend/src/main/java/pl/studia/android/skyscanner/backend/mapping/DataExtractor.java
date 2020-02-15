@@ -97,6 +97,15 @@ public class DataExtractor {
         }).collect(Collectors.toList());
     }
 
+    public List<SearchParameters> getCurrentProfileStatusToSearchParameters(AppUser user){
+        UserAccountDTOMapper mapper = Mappers.getMapper(UserAccountDTOMapper.class);
+        Collection<SearchParametersDTO> foundProfiles =  profilesManager.findAllProfilesFor(mapper.mapToUserAccountDTO(user));
+        return foundProfiles.stream().map(o -> {
+            SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
+            return searchParametersMapper.mapToSearchParameters(o);
+        }).collect(Collectors.toList());
+    }
+
     public SearchResult upsertProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
          SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
          UserAccountDTO userAccountDTO = userManager.findById(user.getUserName()).get();
@@ -139,12 +148,12 @@ public class DataExtractor {
         return searchParametersMapper.mapToSearchResults(parametersRecord);
     }
 
-    public Boolean removeProfile(AppUser user, SearchResult searchResult) throws IOException, InterruptedException {
-        profilesRepository.deleteById(searchResult.getId());
+    public Boolean removeProfile(Integer profileId) throws IOException, InterruptedException {
+        profilesRepository.deleteById(profileId);
         return true;
     }
 
-    @Scheduled(fixedRate = 10000)
+//    @Scheduled(fixedRate = 10000)
     public void performDataRefresh() {
         SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
         profilesRepository.findAll().stream().forEach(o ->{

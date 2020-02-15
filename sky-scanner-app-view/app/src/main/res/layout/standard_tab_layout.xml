@@ -7,7 +7,9 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -24,14 +26,16 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/adults_count_text" />
+                    android:text="@string/adults_count_text"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/TVadultsValue"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"/>
             </LinearLayout>
         </TableRow>
 
@@ -50,14 +54,16 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/childs_count_text" />
+                    android:text="@string/childs_count_text"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/TVchildsValue"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"/>
             </LinearLayout>
         </TableRow>
 
@@ -76,14 +82,16 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/departure_loc_text" />
+                    android:text="@string/departure_loc_text"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/TVdepLocValue"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"/>
             </LinearLayout>
         </TableRow>
 
@@ -102,14 +110,16 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/arrival_loc_text" />
+                    android:text="@string/arrival_loc_text"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/TVarrLocValue"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"/>
             </LinearLayout>
         </TableRow>
 
@@ -128,14 +138,16 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/date_range_text" />
+                    android:text="@string/date_range_text"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/TVdatesValue"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"/>
             </LinearLayout>
         </TableRow>
 
@@ -154,14 +166,16 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/max_transfers_text" />
+                    android:text="@string/max_transfers_text"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/TVmaxTransValue"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"/>
             </LinearLayout>
         </TableRow>
 
@@ -180,115 +194,119 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/max_cost_text" />
+                    android:text="@string/max_cost_text"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/TVmaxCostValue"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"/>
             </LinearLayout>
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="15dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/TVweekendsLabel"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/just_weekends_text" />
-
-                <TextView
-                    android:id="@+id/TVweekendsValue"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-            </LinearLayout>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="@drawable/border"></TableRow>
     </TableLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black" />
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="141dp"
+        android:layout_margin="5dp"
+        android:background="#8099cc00"
+        android:padding="5dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="15dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/deparureDateEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="date" />
-
-                <EditText
-                    android:id="@+id/arrivalDateEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="date" />
-
-            </LinearLayout>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/price" />
+                    android:text="@string/arrival_date"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/deparureDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/departure_date"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/arrivalDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/priceTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/transfers_number" />
+                    android:text="@string/transfers_number"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/transfersNoTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
             </LinearLayout>
         </TableRow>
 
@@ -300,14 +318,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:textAlignment="center">
 
                 <TextView
                     android:id="@+id/linkToOfferTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="link" />
+                    android:layout_weight="0"
+                    android:textSize="16sp" />
             </LinearLayout>
         </TableRow>
 

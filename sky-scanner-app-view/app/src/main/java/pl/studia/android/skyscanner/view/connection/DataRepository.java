@@ -3,6 +3,7 @@ package pl.studia.android.skyscanner.view.connection;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Completable;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.ProfileRequest;
 import pl.studia.android.skyscanner.view.datamodel.ProfileResponse;
@@ -21,12 +22,14 @@ public interface DataRepository {
     public void removeProfile(UserData user, ProfileData profile);
     public Map<String, List<String>> getCountries();
 
+//    @GET("/flight/getProfiles")
+//    public Call<List<ProfileResponse>> getAllProfiles(@Query("username") String email, @Query("password") String password);
     @GET("/flight/getProfiles")
-    public Call<List<ProfileResponse>> getAllProfiles(@Query("username") String email, @Query("password") String password);
+    public Call<List<ProfileData>> getAllProfiles(@Query("username") String email, @Query("password") String password);
     @PUT("/flight/updateProfiles")
-    public Call<ProfileResponse> addProfile(@Query("email")String email, @Query("password")String password, @Body ProfileRequest profile);
+    public Call<ProfileData> addProfile(@Query("email")String email, @Query("password")String password, @Body ProfileRequest profile);
     @DELETE("/flight/removeProfile")
-    public Call<Boolean> removeProfile(@Query("email")String email, @Query("password")String password, @Body ProfileResponse profileResponse);
+    public Call<Boolean> removeProfile(@Query("email")String email, @Query("password")String password, @Query("profileId") Integer profileId);
     @GET("/user/getUser")
     public Call<UserData> getUserByEmail(@Query("email")String email);
 

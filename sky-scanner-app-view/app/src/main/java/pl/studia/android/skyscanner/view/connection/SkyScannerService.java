@@ -23,7 +23,7 @@ public class SkyScannerService {
 
         DataRepository service = RetrofitClientInstance.getRetrofitInstance().create(DataRepository.class);
 
-        Call<List<ProfileResponse>> call = service.getAllProfiles(email, password);
+//        Call<List<ProfileResponse>> call = service.getAllProfiles(email, password);
 
 //        try {
 //            Response<ProfileResponse> response = callSync.execute();
@@ -33,22 +33,22 @@ public class SkyScannerService {
 //            ex.printStackTrace();
 //        }
         System.out.println("test1");
-        call.enqueue(new Callback<List<ProfileResponse>>() {
-
-            @Override
-            public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
-                System.out.println("test2");
-                List<ProfileResponse> apiResponse = response.body();
-
-            System.out.println(apiResponse);
-            }
-
-            @Override
-            public void onFailure(Call<List<ProfileResponse>> call, Throwable t) {
-                System.out.println("test3");
-                int i=0;
-            }
-        });
+//        call.enqueue(new Callback<List<ProfileResponse>>() {
+//
+//            @Override
+//            public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
+//                System.out.println("test2");
+//                List<ProfileResponse> apiResponse = response.body();
+//
+//            System.out.println(apiResponse);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ProfileResponse>> call, Throwable t) {
+//                System.out.println("test3");
+//                int i=0;
+//            }
+//        });
         System.out.println("test4");
         return null;
     }

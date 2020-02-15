@@ -37,20 +37,20 @@ public class ServerDataRepository implements DataRepository {
     }
 
     @Override
-    public Call<List<ProfileResponse>> getAllProfiles(String email, String password) {
+    public Call<List<ProfileData>> getAllProfiles(String email, String password) {
         return null;
     }
 
     @Override
-    public Call<ProfileResponse> addProfile(String email, String password, ProfileRequest profile) {
+    public Call<ProfileData> addProfile(String email, String password, ProfileRequest profile) {
         return null;
     }
+
 
     @Override
-    public Call<Boolean> removeProfile(String email, String password, ProfileResponse profileResponse) {
+    public Call<Boolean> removeProfile(String email, String password, Integer profileId) {
         return null;
     }
-
     @Override
     public Call<UserData> getUserByEmail(String email) {
         return null;

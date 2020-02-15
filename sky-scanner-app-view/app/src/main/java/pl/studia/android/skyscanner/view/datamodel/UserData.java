@@ -11,13 +11,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserData {
+public class UserData implements Serializable {
+
+    private static final long serialVersionUID = -2409412101718658408L;
+
 
     String email;
     String password;
-//    @SerializedName("first_name")
+    @SerializedName("first_name")
     String firstName;
-//    @SerializedName("last_name")
+    @SerializedName("last_name")
     String lastName;
 
 }

@@ -33,7 +33,7 @@ public class LoginInformation {
                 userData = response.body();
                 if (userData != null) {
                     isLoggedIn = true;
-                    Toast.makeText(MainActivity.getContext(), "Zalogowano!", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.getContext(), "Zalogowano!", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -42,7 +42,7 @@ public class LoginInformation {
             public void onFailure(Call<UserData> call, Throwable t) {
 //                userData = null;
                 isLoggedIn = false;
-                Toast.makeText(MainActivity.getContext(), "Błąd logowania!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.getContext(), "Błąd logowania!", Toast.LENGTH_LONG).show();
             }
         });
         if(call.isExecuted()){

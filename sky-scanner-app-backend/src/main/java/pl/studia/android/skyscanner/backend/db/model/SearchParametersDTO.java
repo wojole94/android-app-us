@@ -58,4 +58,6 @@ public class SearchParametersDTO {
     LocalDateTime exactArrivalDate;
     @Column(name="deep_link", length = 15000)
     String deepLink;
+    @Column(name = "real_transfers_number")
+    Integer realTransfersNumber;
 }

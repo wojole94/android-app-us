@@ -24,5 +24,10 @@
     <string name="refresh_button">Odśwież</string>
     <string name="price">Cena:</string>
     <string name="transfers_number">Przesiadki:</string>
+    <string name="arrival_date" >"Wylot: "</string>
+    <string name="departure_date">Przylot:</string>
+
+    <string name="linkFromStrings"><a href="https://www.google.pl/">Google</a></string>
+
 
 </resources>

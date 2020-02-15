@@ -46,11 +46,11 @@ public class FlightRestController {
     }
 
     @GetMapping("/getProfiles")
-    public List<SearchResult> getProfiles(@Valid @RequestParam("username") String username,
+    public List<SearchParameters> getProfiles(@Valid @RequestParam("username") String username,
                                           @Valid @RequestParam("password") String password)
         throws IOException, InterruptedException {
         AppUser user = new AppUser(username, password);
-        List<SearchResult> returnResponse = dataExtractor.getCurrentProfileStatus(user);
+        List<SearchParameters> returnResponse = dataExtractor.getCurrentProfileStatusToSearchParameters(user);
         return returnResponse;
     }
 
@@ -65,14 +65,15 @@ public class FlightRestController {
     }
 
     @DeleteMapping("/removeProfile")
-    public Boolean removeProfiles(@Valid @RequestParam("username") String username,
+    public Boolean removeProfiles(@Valid @RequestParam("email") String email,
                                            @Valid @RequestParam("password") String password,
-                                           @Valid @RequestBody SearchResult searchResult)
+                                           @Valid @RequestParam("profileId") Integer profileId)
         throws IOException, InterruptedException {
 
-        AppUser user = new AppUser(username, password);
+        AppUser user = new AppUser(email, password);
+        //TODO validate & authenticate user
 //        SearchResult returnResponse = dataExtractor.removeProfile(user, searchResult);
-        dataExtractor.removeProfile(user, searchResult);
+        dataExtractor.removeProfile(profileId);
         return true;
     }
 }

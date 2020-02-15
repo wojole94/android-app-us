@@ -48,5 +48,7 @@ public class SearchResult {
     private LocalDateTime exactArrivalDate;
     @JsonProperty("deep_link")
     String deepLink;
+    @JsonProperty("real_transfers_number")
+    private Integer realTransfersNumber;
 
 }
