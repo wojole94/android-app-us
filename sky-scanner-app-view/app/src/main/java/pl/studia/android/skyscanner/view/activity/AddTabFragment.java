@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
+import pl.studia.android.skyscanner.view.connection.SkyScannerService;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.UserData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
@@ -55,6 +56,7 @@ public class AddTabFragment extends Fragment {
         addButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SkyScannerService.getAllProfiles("jan@web.pl", "jan1");
                 Intent editIntent = new Intent(main.getBaseContext(), EditFormActivity.class);
                 main.startActivity(editIntent);
             }
