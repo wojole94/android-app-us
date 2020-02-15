@@ -41,12 +41,14 @@ public class SearchResult {
     @JsonProperty("price")
     private Integer currentPrice;
     @JsonProperty("departure_date")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime exactDepartureDate;
     @JsonProperty("arrival_date")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime exactArrivalDate;
     @JsonProperty("deep_link")
     String deepLink;
+    @JsonProperty("real_transfers_number")
+    private Integer realTransfersNumber;
 
 }

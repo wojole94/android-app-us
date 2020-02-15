@@ -49,5 +49,10 @@ public class UserAccountManager {
         userAccountDTO.setEmail("janusz@web.pl");
         userAccountDTO.setPassword("janusz1");
         save(userAccountDTO);
+        userAccountDTO.setFirstName("Testowy");
+        userAccountDTO.setLastName("Uzytkownik");
+        userAccountDTO.setEmail("login1@email.com");
+        userAccountDTO.setPassword("xyzHaslo");
+        save(userAccountDTO);
     }
 }

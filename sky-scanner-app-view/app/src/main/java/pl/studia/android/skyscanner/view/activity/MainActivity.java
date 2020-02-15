@@ -12,11 +12,16 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.ActiveConnection;
 import pl.studia.android.skyscanner.view.connection.DataRepository;
+import pl.studia.android.skyscanner.view.connection.FlightsServiceFactory;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.datamodel.UserData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     DataRepository dataAccess = HashMapDataRepository.getInstance();
     Map<Integer, ProfileData> items;
     UserData user;
+    ProfileData profileData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +42,38 @@ public class MainActivity extends AppCompatActivity {
         user = UsersServiceMock.getSampleUser();
         //Call for already assigned profiles
 
-        items = dataAccess.getProfiles(user);
-        buildTabsList(items);
+//        items = dataAccess.getProfiles(user);
+//        buildTabsList(items);
+//        refreshUserProfiles();
+    }
+
+    public void refreshUserProfiles(){
+        UserData userData = ActiveConnection.getInstance().getUserData();
+        Call<Map<Integer, ProfileData>> allProfilesMapCall = FlightsServiceFactory.makeService().getAllProfilesMap(userData.getEmail(), userData.getPassword());
+        if(!allProfilesMapCall.isExecuted()) {
+            allProfilesMapCall.enqueue(new Callback<Map<Integer, ProfileData>>() {
+
+                @Override
+                public void onResponse(Call<Map<Integer, ProfileData>> call, Response<Map<Integer, ProfileData>> response) {
+                    items = response.body();
+                    buildTabsList(items);
+                }
+
+                @Override
+                public void onFailure(Call<Map<Integer, ProfileData>> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         scrollViewgroup.removeAllViews();
-        items = dataAccess.getProfiles(user);
-        buildTabsList(items);
+//        items = dataAccess.getProfiles(user);
+//        buildTabsList(items);
+        refreshUserProfiles();
 
     }
 
@@ -58,15 +86,16 @@ public class MainActivity extends AppCompatActivity {
             TextView caption = singleFrame.findViewById(R.id.caption);
 
             scrollViewgroup.addView(singleFrame);
-            caption.setText(entry.getValue().toString());
+            caption.setText(entry.getValue().getFlightRoute());
             singleFrame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Setting new fragment at tab
                     Integer dataID = v.getId();
-                    Map<Integer, ProfileData> data = dataAccess.getProfiles(user);
+//                    Map<Integer, ProfileData> data = dataAccess.getProfiles(user);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    TabFragment tabFragment = TabFragment.newInstance(data.get(dataID));
+//                    TabFragment tabFragment = TabFragment.newInstance(data.get(dataID));
+                    TabFragment tabFragment = TabFragment.newInstance(items.get(dataID));
                     ft.replace(R.id.tab_holder, tabFragment);
                     ft.commit();
                 }

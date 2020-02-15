@@ -3,6 +3,7 @@ package pl.studia.android.skyscanner.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
 
+import static android.text.Html.fromHtml;
+
 
 public class TabFragment extends Fragment {
 
@@ -38,17 +41,32 @@ public class TabFragment extends Fragment {
     @BindView(R.id.TVdatesValue) TextView TVdatesValue;
     @BindView(R.id.TVmaxTransValue) TextView TVmaxTransValue;
     @BindView(R.id.TVmaxCostValue) TextView TVmaxCostValue;
-    @BindView(R.id.TVweekendsValue) TextView TVweekendsValue;
     @BindView(R.id.Bedit) Button Bedit;
     @BindView(R.id.Bdel) Button Bdel;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    @BindView(R.id.Brefresh)
+    Button Brefresh;
+    @BindView(R.id.arrivalDateTextView)
+    TextView arrivalDateTextView;
+    @BindView(R.id.deparureDateTextView)
+    TextView deparureDateTextView;
+    @BindView(R.id.priceTextView)
+    TextView priceTextView;
+    @BindView(R.id.transfersNoTextView)
+    TextView transfersNoTextView;
+    @BindView(R.id.linkToOfferTextView)
+    TextView linkToOfferTextView;
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     DataRepository dataRepository = HashMapDataRepository.getInstance();
+
+     static ProfileData profileData;
 
     public static TabFragment newInstance(ProfileData data){
         TabFragment fragment = new TabFragment();
         Bundle args = new Bundle();
-        args.putSerializable("profile-data",data);
+//        args.putSerializable("profile-data",data);
+        profileData = data;
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,7 +88,8 @@ public class TabFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Bundle arguments = getArguments();
-        ProfileData data = (ProfileData) arguments.getSerializable("profile-data");
+//        ProfileData data = (ProfileData) arguments.getSerializable("profile-data");
+        ProfileData data =profileData;
         LinearLayout standard_tab_layout = (LinearLayout) inflater.inflate(R.layout.standard_tab_layout, null);
         ButterKnife.bind(this, standard_tab_layout);
 
@@ -83,7 +102,16 @@ public class TabFragment extends Fragment {
                 + dateFormat.format(data.getEndDate()));
         TVmaxTransValue.setText("" + data.getTransfersCount());
         TVmaxCostValue.setText(data.getMaxPrice().toString());
-        TVweekendsValue.setText(data.getJustWeekends().toString());
+
+        if(data.getDeepLink() != null) {
+            arrivalDateTextView.setText(dateFormat.format(data.getArrivalDate()));
+            deparureDateTextView.setText(dateFormat.format(data.getDepartureDate()));
+            priceTextView.setText("" + data.getPrice());
+            transfersNoTextView.setText("" + data.getRealTransfersNumber());
+            String value = "<html>Link do oferty <a href=\"" + data.getDeepLink() + "\">kiwi.com</a></html>";
+            linkToOfferTextView.setText(fromHtml(value));
+            linkToOfferTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
 
         Bedit.setOnClickListener(new View.OnClickListener() {
             @Override

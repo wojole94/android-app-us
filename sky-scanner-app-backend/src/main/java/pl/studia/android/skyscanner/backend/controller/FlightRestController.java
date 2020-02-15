@@ -8,8 +8,13 @@ import pl.studia.android.skyscanner.backend.model.AppUser;
 import pl.studia.android.skyscanner.backend.model.SearchParameters;
 import pl.studia.android.skyscanner.backend.model.SearchResult;
 
+import java.awt.print.Book;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -34,33 +39,58 @@ public class FlightRestController {
         return dataExtractor.getBestFlightFor(searchParameters);
     }
 
-    @GetMapping("/getProfiles")
-    public List<SearchResult> getProfiles(@Valid @RequestParam("username") String username,
-                                          @Valid @RequestParam("password") String password)
-        throws IOException, InterruptedException {
+    @GetMapping("/getProfile")
+    public Optional<SearchResult> getProfile(@RequestParam("id") Integer id,
+                                              @Valid @RequestParam("email") String username,
+                                              @Valid @RequestParam("password") String password)
+            throws IOException, InterruptedException {
         AppUser user = new AppUser(username, password);
-        List<SearchResult> returnResponse = dataExtractor.getCurrentProfileStatus(user);
+        Optional<SearchResult> returnResponse = dataExtractor.getCurrentProfileQueryStatus(id, user);
         return returnResponse;
     }
 
+    @GetMapping("/getProfiles")
+    public List<SearchParameters> getProfiles(@Valid @RequestParam("username") String username,
+                                          @Valid @RequestParam("password") String password)
+        throws IOException, InterruptedException {
+        AppUser user = new AppUser(username, password);
+        List<SearchParameters> returnResponse = dataExtractor.getCurrentProfileStatusToSearchParameters(user);
+        return returnResponse;
+    }
+
+    @GetMapping("/getProfilesMap")
+    public Map<Integer, SearchParameters> getProfilesMap(@Valid @RequestParam("username") String username,
+                                             @Valid @RequestParam("password") String password)
+            throws IOException, InterruptedException {
+        AppUser user = new AppUser(username, password);
+        List<SearchParameters> returnResponseList = dataExtractor.getCurrentProfileStatusToSearchParameters(user);
+        int i=-1;
+        Map<Integer, SearchParameters> returnResponseMap = new HashMap<>();
+        for (SearchParameters returnResponse : returnResponseList)
+            returnResponseMap.put(returnResponse.getId(), returnResponse);
+        return returnResponseMap;
+    }
+
     @PutMapping("/updateProfiles")
-    public SearchResult updateProfile(@Valid @RequestParam("username") String username,
+    public SearchResult updateProfile(@Valid @RequestParam("email") String email,
                                       @Valid @RequestParam("password") String password,
                                       @Valid @RequestBody SearchParameters searchParameters)
         throws IOException, InterruptedException {
-        AppUser user = new AppUser(username, password);
+        AppUser user = new AppUser(email, password);
         SearchResult returnResponse = dataExtractor.upsertProfile(user, searchParameters);
         return returnResponse;
     }
 
     @DeleteMapping("/removeProfile")
-    public SearchParameters removeProfiles(@Valid @RequestParam("username") String username,
+    public Boolean removeProfiles(@Valid @RequestParam("email") String email,
                                            @Valid @RequestParam("password") String password,
-                                           @Valid @RequestBody SearchParameters searchParameters)
+                                           @Valid @RequestParam("profileId") Integer profileId)
         throws IOException, InterruptedException {
 
-        AppUser user = new AppUser(username, password);
-        SearchResult returnResponse = dataExtractor.removeProfile(user, searchParameters);
-        return searchParameters;
+        AppUser user = new AppUser(email, password);
+        //TODO validate & authenticate user
+//        SearchResult returnResponse = dataExtractor.removeProfile(user, searchResult);
+        dataExtractor.removeProfile(profileId);
+        return true;
     }
 }

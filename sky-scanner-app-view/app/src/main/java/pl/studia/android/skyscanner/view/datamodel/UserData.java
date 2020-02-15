@@ -12,7 +12,7 @@ import lombok.Setter;
 public class UserData implements Serializable {
 
     private static final long serialVersionUID = -2409412101718658408L;
-    String username;
+    String email;
     String password;
 
 }

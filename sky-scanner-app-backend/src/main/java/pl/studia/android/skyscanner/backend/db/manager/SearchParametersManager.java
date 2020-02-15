@@ -10,6 +10,7 @@ import pl.studia.android.skyscanner.backend.db.model.UserAccountDTO;
 import pl.studia.android.skyscanner.backend.db.repository.SearchParametersRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -32,6 +33,17 @@ public class SearchParametersManager {
             }
             return false;
         }).collect(Collectors.toList());
+
+    }
+
+    public Optional<SearchParametersDTO> findProfile(Integer id, UserAccountDTO user){
+        return repository.findById(id).stream().filter(elem -> {
+            UserAccountDTO accountDTO = elem.getUserAccountDTO();
+            if(accountDTO != null && accountDTO.getEmail() != null) {
+                return accountDTO.getEmail().equals(user.getEmail());
+            }
+            return false;
+        }).findFirst();
 
     }
 

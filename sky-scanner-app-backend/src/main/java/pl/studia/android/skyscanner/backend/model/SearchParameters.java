@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.Column;
 
 @Getter
 @Setter
@@ -41,6 +44,18 @@ public class SearchParameters {
     private Integer maximumPrice;
     @JsonProperty("only_weekend_flights")
     private Boolean onlyWeekendFlights;
+    @JsonProperty("price")
+    Integer currentPrice;
+    @JsonProperty("departure_date")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+    LocalDateTime exactDepartureDate;
+    @JsonProperty("arrival_date")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+    LocalDateTime exactArrivalDate;
+    @JsonProperty("deep_link")
+    String deepLink;
+    @JsonProperty("real_transfers_number")
+    Integer realTransfersNumber;
 
     public SearchParameters() {
     }

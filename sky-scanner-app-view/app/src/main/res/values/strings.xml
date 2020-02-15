@@ -21,5 +21,13 @@
     <string name="max_cost_text">Maksymalna oczekiwana cena</string>
     <string name="just_weekends_text">Szukaj tylko lotów weekendowych</string>
     <string name="add_new_profile_tab_caption">Dodaj...</string>
+    <string name="refresh_button">Odśwież</string>
+    <string name="price">Cena:</string>
+    <string name="transfers_number">Przesiadki:</string>
+    <string name="arrival_date" >"Wylot: "</string>
+    <string name="departure_date">Przylot:</string>
+
+    <string name="linkFromStrings"><a href="https://www.google.pl/">Google</a></string>
+
 
 </resources>

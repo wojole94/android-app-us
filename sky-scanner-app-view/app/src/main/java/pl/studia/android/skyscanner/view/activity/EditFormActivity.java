@@ -22,10 +22,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.ActiveConnection;
 import pl.studia.android.skyscanner.view.connection.DataRepository;
+import pl.studia.android.skyscanner.view.connection.FlightsService;
+import pl.studia.android.skyscanner.view.connection.FlightsServiceFactory;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
+import pl.studia.android.skyscanner.view.datamodel.UserData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditFormActivity extends AppCompatActivity {
     @BindView(R.id.Bcancel) Button Bcancel;
@@ -45,6 +52,7 @@ public class EditFormActivity extends AppCompatActivity {
     final EditFormActivity context = this;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     DataRepository dataRepo = HashMapDataRepository.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +84,6 @@ public class EditFormActivity extends AppCompatActivity {
         ETchilds.setText(data.getChildCount().toString());
         ETmaxTrans.setText(data.getTransfersCount().toString());
         ETmaxCost.setText(data.getMaxPrice().toString());
-        CBweekends.setChecked(data.getJustWeekends());
         ETdateFrom.setText(dateFormat.format(data.getStartDate()));
         ETdateTo.setText(dateFormat.format(data.getEndDate()));
 
@@ -117,10 +124,29 @@ public class EditFormActivity extends AppCompatActivity {
                     data.setChildCount(Integer.parseInt(ETchilds.getText().toString()));
                     data.setTransfersCount(Integer.parseInt(ETmaxTrans.getText().toString()));
                     data.setMaxPrice(Double.parseDouble(ETmaxCost.getText().toString()));
-                    data.setJustWeekends(CBweekends.isChecked());
                     data.setStartDate(dateFormat.parse(ETdateFrom.getText().toString()));
                     data.setEndDate(dateFormat.parse(ETdateTo.getText().toString()));
 
+//                    data.setDeepLink("asdadsdsadasgrwewewq32rt2");
+//                    data.setArrivalDate(dateFormat.parse(ETdateFrom.getText().toString()));
+//                    data.setDepartureDate(dateFormat.parse(ETdateFrom.getText().toString()));
+//                    data.setPrice(321);
+//                    data.setRealTransfersNumber(3);
+                    UserData userData = ActiveConnection.getInstance().getUserData();
+                    Call<ProfileData> profileDataCall = FlightsServiceFactory.makeService().addProfile(userData.getEmail(), userData.getPassword(), data);
+                    profileDataCall.enqueue(new Callback<ProfileData>() {
+                        @Override
+                        public void onResponse(Call<ProfileData> call, Response<ProfileData> response) {
+                            Toast.makeText(getApplicationContext(), "Zapisano nowe parametry wyszukiwania!", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<ProfileData> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Wystąpił błąd! Nie zapisano wprowadzonych parametrów wyszukiwania. Spróbuj ponownie.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+//TODO delete
                     dataRepo.addProfile(UsersServiceMock.getSampleUser(), data);
                     context.finish();
 
