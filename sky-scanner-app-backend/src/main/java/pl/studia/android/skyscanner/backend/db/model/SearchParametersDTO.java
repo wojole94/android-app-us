@@ -22,7 +22,7 @@ public class SearchParametersDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="fk_user_account")
@@ -56,8 +56,6 @@ public class SearchParametersDTO {
     LocalDateTime exactDepartureDate;
     @Column(name = "arrival_date")
     LocalDateTime exactArrivalDate;
-    @Column(name="deep_link")
+    @Column(name="deep_link", length = 15000)
     String deepLink;
-
-
 }

@@ -79,6 +79,15 @@ public class DataExtractor {
         return searchResult;
     }
 
+    public Optional<SearchResult> getCurrentProfileQueryStatus(Integer id, AppUser user){
+        UserAccountDTOMapper mapper = Mappers.getMapper(UserAccountDTOMapper.class);
+        Optional<SearchParametersDTO> foundProfiles =  profilesManager.findProfile(id, mapper.mapToUserAccountDTO(user));
+        return foundProfiles.stream().map(o -> {
+            SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
+            return searchParametersMapper.mapToSearchResults(o);
+        }).findFirst();
+    }
+
     public List<SearchResult> getCurrentProfileStatus(AppUser user){
         UserAccountDTOMapper mapper = Mappers.getMapper(UserAccountDTOMapper.class);
         Collection<SearchParametersDTO> foundProfiles =  profilesManager.findAllProfilesFor(mapper.mapToUserAccountDTO(user));
@@ -128,6 +137,11 @@ public class DataExtractor {
         parametersRecord.setId(null);
 
         return searchParametersMapper.mapToSearchResults(parametersRecord);
+    }
+
+    public Boolean removeProfile(AppUser user, SearchResult searchResult) throws IOException, InterruptedException {
+        profilesRepository.deleteById(searchResult.getId());
+        return true;
     }
 
     @Scheduled(fixedRate = 10000)

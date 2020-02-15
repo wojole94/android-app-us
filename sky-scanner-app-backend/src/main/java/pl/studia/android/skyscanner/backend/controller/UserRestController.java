@@ -48,11 +48,11 @@ public class UserRestController {
     public UserAccountDTO add(@RequestBody UserAccountDTO userAccountDTO) {
         return userAccountManager.save(userAccountDTO);
     }
-//
-//    @PutMapping
-//    public UserAccount update(@RequestBody UserAccount userAccount) {
-//        return userAccountManager.save(userAccount);
-//    }
+
+    @PutMapping("/put")
+    public UserAccountDTO update(@RequestBody UserAccountDTO userAccount) {
+        return userAccountManager.save(userAccount);
+    }
 //
 //    @DeleteMapping
 //    public void delete(@RequestParam Long index) {

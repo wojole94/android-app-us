@@ -9,6 +9,7 @@ import pl.studia.android.skyscanner.backend.model.SearchResult;
 @Mapper
 public interface SearchParametersDTOMapper {
     @Mappings({
+        @Mapping(source = "id", target = "id"),
         @Mapping(source = "cityFrom", target = "flyFrom"),
         @Mapping(source = "cityTo", target = "flyTo"),
         @Mapping(source = "searchStartDate", target = "dateFrom"),

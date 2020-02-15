@@ -10,6 +10,7 @@ import pl.studia.android.skyscanner.backend.model.SearchResult;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -34,6 +35,16 @@ public class FlightRestController {
         return dataExtractor.getBestFlightFor(searchParameters);
     }
 
+    @GetMapping("/getProfile")
+    public Optional<SearchResult> getProfile(@RequestParam("id") Integer id,
+                                              @Valid @RequestParam("email") String username,
+                                              @Valid @RequestParam("password") String password)
+            throws IOException, InterruptedException {
+        AppUser user = new AppUser(username, password);
+        Optional<SearchResult> returnResponse = dataExtractor.getCurrentProfileQueryStatus(id, user);
+        return returnResponse;
+    }
+
     @GetMapping("/getProfiles")
     public List<SearchResult> getProfiles(@Valid @RequestParam("username") String username,
                                           @Valid @RequestParam("password") String password)
@@ -44,23 +55,24 @@ public class FlightRestController {
     }
 
     @PutMapping("/updateProfiles")
-    public SearchResult updateProfile(@Valid @RequestParam("username") String username,
+    public SearchResult updateProfile(@Valid @RequestParam("email") String email,
                                       @Valid @RequestParam("password") String password,
                                       @Valid @RequestBody SearchParameters searchParameters)
         throws IOException, InterruptedException {
-        AppUser user = new AppUser(username, password);
+        AppUser user = new AppUser(email, password);
         SearchResult returnResponse = dataExtractor.upsertProfile(user, searchParameters);
         return returnResponse;
     }
 
     @DeleteMapping("/removeProfile")
-    public SearchParameters removeProfiles(@Valid @RequestParam("username") String username,
+    public Boolean removeProfiles(@Valid @RequestParam("username") String username,
                                            @Valid @RequestParam("password") String password,
-                                           @Valid @RequestBody SearchParameters searchParameters)
+                                           @Valid @RequestBody SearchResult searchResult)
         throws IOException, InterruptedException {
 
         AppUser user = new AppUser(username, password);
-        SearchResult returnResponse = dataExtractor.removeProfile(user, searchParameters);
-        return searchParameters;
+//        SearchResult returnResponse = dataExtractor.removeProfile(user, searchResult);
+        dataExtractor.removeProfile(user, searchResult);
+        return true;
     }
 }

@@ -9,7 +9,7 @@ public class UsersServiceMock {
         if(userInstance == null) {
             UserData user = new UserData();
             user.setPassword("xyzHaslo");
-            user.setUsername("login1@email.com");
+            user.setEmail("login1@email.com");
             userInstance = user;
         }
         return userInstance;
