@@ -49,6 +49,21 @@ public class FlightRestController {
         return returnResponse;
     }
 
+    @GetMapping("/refreshProfile")
+    public SearchParameters refreshAndGetProfile(@RequestParam("id") Integer id,
+                                             @Valid @RequestParam("email") String username,
+                                             @Valid @RequestParam("password") String password)
+            throws IOException, InterruptedException {
+        AppUser user = new AppUser(username, password);
+        Optional<SearchParameters> searchParameters = dataExtractor.getCurrentProfileToSearchParameters(id, user);
+//        returnResponse.ifPresent(rr -> System.out.println(""));
+        if(searchParameters.isPresent()){
+            SearchParameters sp = searchParameters.get();
+            return dataExtractor.refreshProfile(user,sp);
+        }
+        return null;
+    }
+
     @GetMapping("/getProfiles")
     public List<SearchParameters> getProfiles(@Valid @RequestParam("username") String username,
                                           @Valid @RequestParam("password") String password)

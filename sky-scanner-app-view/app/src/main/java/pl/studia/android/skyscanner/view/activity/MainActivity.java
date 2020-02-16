@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<Map<Integer, ProfileData>> call, Throwable t) {
-
+                    hideProgressDialog();
                 }
             });
         }

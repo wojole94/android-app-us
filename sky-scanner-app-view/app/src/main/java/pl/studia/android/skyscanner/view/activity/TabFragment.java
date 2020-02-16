@@ -1,5 +1,6 @@
 package pl.studia.android.skyscanner.view.activity;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,6 +68,7 @@ public class TabFragment extends Fragment {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
     DataRepository dataRepository = HashMapDataRepository.getInstance();
+    Fragment fragment = this;
 
      static ProfileData profileData;
 
@@ -154,6 +156,8 @@ public class TabFragment extends Fragment {
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         Toast.makeText(getContext(), "Usunięto poprawnie!", Toast.LENGTH_LONG).show();
                         main.onResume();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.detach(fragment).attach(fragment).commit();
                     }
 
                     @Override
@@ -162,6 +166,40 @@ public class TabFragment extends Fragment {
                     }
                 } );
 
+
+
+            }
+        });
+
+
+        Brefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserData userData = ActiveConnection.getInstance().getUserData();
+                Call<ProfileData> profileDataCall = FlightsServiceFactory.makeService().refreshAndGetProfile(data.getId(), userData.getEmail(), userData.getPassword());
+                main.showProgressDialog();
+                profileDataCall.enqueue(new Callback<ProfileData>() {
+                    @Override
+                    public void onResponse(Call<ProfileData> call, Response<ProfileData> response) {
+                        if(response.body()!=null){
+                            main.hideProgressDialog();
+                            ProfileData itemToUpdate = response.body();
+                            if(itemToUpdate!=null) {
+                                main.items.replace(itemToUpdate.getId(), itemToUpdate);
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                TabFragment tabFragment = TabFragment.newInstance(main.items.get(itemToUpdate.getId()));
+                                ft.replace(R.id.tab_holder, tabFragment);
+                                ft.commit();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProfileData> call, Throwable t) {
+                        main.hideProgressDialog();
+                        Toast.makeText(getContext(), "Coś poszło nie tak. Sprawdź połączenie do internetu i spróbuj ponownie.", Toast.LENGTH_LONG).show();
+                    }
+                });
 
 
             }

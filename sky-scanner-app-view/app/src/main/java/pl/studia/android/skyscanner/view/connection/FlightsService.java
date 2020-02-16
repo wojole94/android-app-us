@@ -19,6 +19,9 @@ public interface FlightsService {
     @GET("flight/getProfilesMap")
     public Call<Map<Integer, ProfileData>> getAllProfilesMap(@Query("username") String email, @Query("password") String password);
 
+    @GET("flight/refreshProfile")
+    public Call<ProfileData> refreshAndGetProfile(@Query("id") Integer profileId, @Query("email") String email, @Query("password") String password);
+
     @PUT("flight/updateProfiles")
     public Call<ProfileData> addProfile(@Query("email") String email, @Query("password") String password, @Body ProfileData profile);
 
@@ -27,14 +30,5 @@ public interface FlightsService {
 
     @GET("user/getUser")
     public Call<UserData> getUserByEmail(@Query("email") String email);
-
-    ///////////////////////////////////////////////////////////////////////
-
-
-    public Map<Integer, ProfileData> getProfiles(UserData user);
-
-    public ProfileData addProfile(UserData user, ProfileData profile);
-
-    public void removeProfile(UserData user, ProfileData profile);
 
 }

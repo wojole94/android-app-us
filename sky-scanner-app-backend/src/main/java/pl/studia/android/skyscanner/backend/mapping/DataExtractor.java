@@ -6,7 +6,6 @@ import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.studia.android.skyscanner.backend.connector.KiwiConnection;
 import pl.studia.android.skyscanner.backend.db.manager.SearchParametersManager;
@@ -102,6 +101,14 @@ public class DataExtractor {
             return searchParametersMapper.mapToSearchParameters(o);
         }).collect(Collectors.toList());
     }
+    public Optional<SearchParameters> getCurrentProfileToSearchParameters(Integer id, AppUser user) {
+        UserAccountDTOMapper mapper = Mappers.getMapper(UserAccountDTOMapper.class);
+        Optional<SearchParametersDTO> foundProfiles = profilesManager.findProfile(id, mapper.mapToUserAccountDTO(user));
+        return foundProfiles.stream().map(o -> {
+            SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
+            return searchParametersMapper.mapToSearchParameters(o);
+        }).findFirst();
+    }
 
     public SearchResult upsertProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
         SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
@@ -133,6 +140,16 @@ public class DataExtractor {
         }
 
         return searchParametersMapper.mapToSearchResults(parametersRecord);
+    }
+
+    public SearchParameters refreshProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
+        SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
+        SearchResult searchResult = getBestFlightFor(searchParametersMapper.mapToSearchParametersDTO(searchParameters));
+        SearchParametersDTO tmpDTO = searchParametersMapper.mapToSearchParametersDTO(searchResult);
+        SearchParameters searchPatrameters = searchParametersMapper.mapToSearchParameters(tmpDTO);
+        SearchResult result = upsertProfile(user, searchPatrameters);
+
+        return searchParametersMapper.mapToSearchParameters(searchParametersMapper.mapToSearchParametersDTO(result));
     }
 
     public SearchResult removeProfile(AppUser user, SearchParameters searchParameters) throws IOException, InterruptedException {
