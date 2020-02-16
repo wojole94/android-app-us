@@ -58,22 +58,23 @@ public class HashMapDataRepository implements DataRepository{
         citiesSet.add("NONE");
         citiesSet.add("KTW");
         citiesSet.add("IEV");
-        citiesSet.add("KRA");
-        citiesSet.add("KEF");
+        citiesSet.add("BRI");
         citiesSet.add("ROM");
         citiesSet.add("BER");
         citiesSet.add("LON");
         citiesSet.add("DEN");
         citiesSet.add("MAD");
-        citiesSet.add("MAS");
-        citiesSet.add("EGP");
+        citiesSet.add("OSL");
+        citiesSet.add("BCN");
         citiesSet.add("AKU");
-        citiesSet.add("MOS");
+        citiesSet.add("HEL");
         citiesSet.add("WAW");
         citiesSet.add("WRO");
-        citiesSet.add("TOK");
+        citiesSet.add("ATH");
         citiesSet.add("NYC");
         citiesSet.add("WAS");
+        citiesSet.add("PMI");
+        citiesSet.add("LIS");
 
 
         return citiesSet.stream().sorted((String::compareTo)).collect(Collectors.toList());

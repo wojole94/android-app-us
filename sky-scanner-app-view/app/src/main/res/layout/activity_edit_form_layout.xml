@@ -214,6 +214,7 @@
                     android:id="@+id/TVmaxTrans"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:layout_weight="1"
                     android:text="@string/max_transfers_text" />
 
@@ -221,6 +222,7 @@
                     android:id="@+id/ETmaxTrans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:ems="10"
                     android:text="0" />
@@ -239,6 +241,7 @@
                     android:id="@+id/TVmaxCost"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:layout_weight="1"
                     android:text="@string/max_cost_text" />
 
@@ -246,14 +249,17 @@
                     android:id="@+id/ETmaxCost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:ems="10"
                     android:text="1000" />
             </LinearLayout>
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:visibility="invisible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -270,7 +276,7 @@
                 <CheckBox
                     android:id="@+id/CBweekends"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </TableRow>
     </TableLayout>

@@ -51,14 +51,14 @@ public class ProfileData implements Serializable {
     private Integer realTransfersNumber;
 
     public ProfileData() {
-        this.adultsCount = new Integer(1);
-        this.childCount = new Integer(0);
+        this.adultsCount = Integer.valueOf(1);
+        this.childCount = Integer.valueOf(0);
         this.departCity = "NONE";
         this.arrivalCity = "NONE";
         this.startDate = new Date();
         this.endDate = new Date();
-        this.maxStopovers = new Integer(2);
-        this.maxPrice = new Double(1000);
+        this.maxStopovers = Integer.valueOf(2);
+        this.maxPrice = Double.valueOf(1000);
     }
 //
 //    @Override
