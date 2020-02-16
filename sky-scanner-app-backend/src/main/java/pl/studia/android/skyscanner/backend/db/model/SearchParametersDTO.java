@@ -48,8 +48,8 @@ public class SearchParametersDTO {
     Integer maximumPrice;
     @Column(name="only_weekends")
     Boolean onlyWeekends;
-    @Column(name = "transfers_count")
-    Integer transfersCount;
+    @Column(name = "max_stopovers")
+    Integer maxStopovers;
     @Column(name = "price")
     Double currentPrice;
     @Column(name = "departure_date")

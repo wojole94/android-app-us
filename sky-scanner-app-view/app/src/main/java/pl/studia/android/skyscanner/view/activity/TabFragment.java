@@ -66,7 +66,7 @@ public class TabFragment extends Fragment {
     TextView linkToOfferTextView;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     DataRepository dataRepository = HashMapDataRepository.getInstance();
     Fragment fragment = this;
 
@@ -110,7 +110,7 @@ public class TabFragment extends Fragment {
         TVdatesValue.setText(dateFormat.format(data.getStartDate())
                 + " - "
                 + dateFormat.format(data.getEndDate()));
-        TVmaxTransValue.setText("" + data.getTransfersCount());
+        TVmaxTransValue.setText("" + data.getMaxStopovers());
         TVmaxCostValue.setText(data.getMaxPrice().toString());
 
         if(data.getDeepLink() != null) {

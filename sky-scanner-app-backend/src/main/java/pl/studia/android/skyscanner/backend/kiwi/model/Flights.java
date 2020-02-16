@@ -38,7 +38,7 @@ public class Flights {
             if (bestPriceFlight == null)
                 bestPriceFlight = flight;
             else {
-                if (flight.getPrice() > bestPriceFlight.getPrice()) { //TODO teraz zwraca tylko jeden najlepszy - co jeżeli dwa w tej samej cenie
+                if (flight.getPrice() < bestPriceFlight.getPrice()) { //TODO teraz zwraca tylko jeden najlepszy - co jeżeli dwa w tej samej cenie
                     bestPriceFlight = flight;
                 }
             }

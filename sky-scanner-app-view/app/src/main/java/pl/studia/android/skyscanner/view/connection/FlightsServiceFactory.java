@@ -3,9 +3,11 @@ package pl.studia.android.skyscanner.view.connection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.logging.HttpLoggingInterceptor;
+import pl.studia.android.skyscanner.view.util.UtcDateAdapter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.OkHttpClient;
@@ -27,7 +29,7 @@ public class FlightsServiceFactory {
                     .writeTimeout(15, TimeUnit.SECONDS)
                     .build();
 //            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm").create();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").registerTypeAdapter(Date.class, new UtcDateAdapter()).create();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

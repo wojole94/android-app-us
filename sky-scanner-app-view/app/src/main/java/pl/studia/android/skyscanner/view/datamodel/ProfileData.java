@@ -35,8 +35,8 @@ public class ProfileData implements Serializable {
     Date startDate;
     @SerializedName("search_end_date")
     Date endDate;
-    @SerializedName("transfers_number")
-    Integer transfersCount;
+    @SerializedName("max_stopovers")
+    Integer maxStopovers;
     @SerializedName("maximum_price")
     Double maxPrice;
     @SerializedName("deep_link")
@@ -57,7 +57,7 @@ public class ProfileData implements Serializable {
         this.arrivalCity = "NONE";
         this.startDate = new Date();
         this.endDate = new Date();
-        this.transfersCount = new Integer(2);
+        this.maxStopovers = new Integer(2);
         this.maxPrice = new Double(1000);
     }
 //

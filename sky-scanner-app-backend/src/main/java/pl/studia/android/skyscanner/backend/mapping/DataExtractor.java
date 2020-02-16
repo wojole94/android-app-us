@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.studia.android.skyscanner.backend.connector.KiwiConnection;
 import pl.studia.android.skyscanner.backend.db.manager.SearchParametersManager;
@@ -61,7 +62,7 @@ public class DataExtractor {
                 SearchDetail flightWithBestPrice = flights.getFlightWithBestPrice();
                 SearchResult searchResult = mapper.mapToSearchResults(searchParametersDTO);
                 searchResult.setCurrentPrice(flightWithBestPrice.getPrice());
-                searchResult.setRealTransfersNumber(flightWithBestPrice.getPnrCount());
+                searchResult.setRealTransfersNumber(flightWithBestPrice.getPnrCount()-1);
                 searchResult.setExactDepartureDate(LocalDateTime.ofInstant(flightWithBestPrice.getDTimeUTC(), ZoneOffset.UTC));
                 searchResult.setExactArrivalDate(LocalDateTime.ofInstant(flightWithBestPrice.getATimeUTC(), ZoneOffset.UTC));
                 searchResult.setDeepLink(flightWithBestPrice.getDeepLink());
@@ -168,7 +169,7 @@ public class DataExtractor {
         return true;
     }
 
-//    @Scheduled(fixedRate = 20000)
+    @Scheduled(fixedRate = 20000)
     public void performDataRefresh() {
         SearchParametersDTOMapper searchParametersMapper = Mappers.getMapper(SearchParametersDTOMapper.class);
         profilesRepository.findAll().stream().forEach(o -> {

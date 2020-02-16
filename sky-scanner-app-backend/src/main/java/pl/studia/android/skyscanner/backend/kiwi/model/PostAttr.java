@@ -26,8 +26,8 @@ public class PostAttr {
     @JsonProperty("date_to")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY")
     Date dateTo;
-    @JsonProperty("direct_flights")
-    Boolean directFlights;
+    @JsonProperty("max_stopovers")
+    Integer maxStopovers;
     Integer passengers;
     Integer adults;
     Integer children;

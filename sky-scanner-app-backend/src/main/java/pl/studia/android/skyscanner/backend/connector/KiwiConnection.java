@@ -17,6 +17,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.Date;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 public class KiwiConnection {
@@ -27,9 +28,9 @@ public class KiwiConnection {
         PostAttr postAttr = new PostAttr(
             searchParameters.getFlyFrom(),
             searchParameters.getFlyTo(),
-            Date.from(searchParameters.getDateFrom().atZone(ZoneId.systemDefault()).toInstant()),
-            Date.from(searchParameters.getDateTo().atZone(ZoneId.systemDefault()).toInstant()),
-            null,
+            Date.from(searchParameters.getDateFrom().toInstant(ZoneOffset.UTC)),
+            Date.from(searchParameters.getDateTo().toInstant(ZoneOffset.UTC)),
+            searchParameters.getMaxStopovers(),
             searchParameters.getAdults() + searchParameters.getChildren(),
             searchParameters.getAdults(),
             searchParameters.getChildren(),

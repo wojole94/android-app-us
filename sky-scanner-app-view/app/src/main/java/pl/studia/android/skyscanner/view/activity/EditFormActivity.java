@@ -17,8 +17,12 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +87,7 @@ public class EditFormActivity extends BaseActivity {
         SarrLoc.setSelection(citiesList.indexOf(data.getArrivalCity()));
         ETadults.setText(data.getAdultsCount().toString());
         ETchilds.setText(data.getChildCount().toString());
-        ETmaxTrans.setText(data.getTransfersCount().toString());
+        ETmaxTrans.setText(data.getMaxStopovers().toString());
         ETmaxCost.setText(data.getMaxPrice().toString());
         ETdateFrom.setText(dateFormat.format(data.getStartDate()));
         ETdateTo.setText(dateFormat.format(data.getEndDate()));
@@ -124,10 +128,14 @@ public class EditFormActivity extends BaseActivity {
                     data.setArrivalCity(SarrLoc.getSelectedItem().toString());
                     data.setAdultsCount(Integer.parseInt(ETadults.getText().toString()));
                     data.setChildCount(Integer.parseInt(ETchilds.getText().toString()));
-                    data.setTransfersCount(Integer.parseInt(ETmaxTrans.getText().toString()));
+                    data.setMaxStopovers(Integer.parseInt(ETmaxTrans.getText().toString()));
                     data.setMaxPrice(Double.parseDouble(ETmaxCost.getText().toString()));
-                    data.setStartDate(dateFormat.parse(ETdateFrom.getText().toString()));
-                    data.setEndDate(dateFormat.parse(ETdateTo.getText().toString()));
+                    Date tmp = dateFormat.parse(ETdateFrom.getText().toString());
+                    tmp.setHours(12);
+                    data.setStartDate(tmp);
+                    tmp = dateFormat.parse(ETdateTo.getText().toString());
+                    tmp.setHours(12);
+                    data.setEndDate(tmp);
 
                     data.setDeepLink(null);
                     data.setArrivalDate(null);

@@ -34,8 +34,8 @@ public class SearchParameters {
     private LocalDateTime searchEndDate;
     //    @JsonProperty("length_of_stay")
 //    private Integer lengthOfStay;
-    @JsonProperty("transfers_number")
-    private Integer transfersNumber;
+    @JsonProperty("max_stopovers")
+    private Integer maxStopovers;
     @JsonProperty("adults_number")
     private Integer adultsNumber;
     @JsonProperty("children_number")

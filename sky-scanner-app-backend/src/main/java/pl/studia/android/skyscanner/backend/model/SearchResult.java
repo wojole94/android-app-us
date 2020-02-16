@@ -38,8 +38,8 @@ public class SearchResult {
     private Integer maximumPrice;
     @JsonProperty("only_weekends")
     private Boolean onlyWeekends;
-    @JsonProperty("transfers_count")
-    private Integer transfersCount;
+    @JsonProperty("max_stopovers")
+    private Integer maxStopovers;
     @JsonProperty("price")
     private Double currentPrice;
     @JsonProperty("departure_date")
