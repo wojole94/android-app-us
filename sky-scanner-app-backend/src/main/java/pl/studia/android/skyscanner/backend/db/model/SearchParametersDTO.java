@@ -51,7 +51,7 @@ public class SearchParametersDTO {
     @Column(name = "transfers_count")
     Integer transfersCount;
     @Column(name = "price")
-    Integer currentPrice;
+    Double currentPrice;
     @Column(name = "departure_date")
     LocalDateTime exactDepartureDate;
     @Column(name = "arrival_date")

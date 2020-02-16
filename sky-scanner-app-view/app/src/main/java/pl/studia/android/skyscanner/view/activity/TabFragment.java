@@ -14,16 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.app.Fragment;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.studia.android.skyscanner.view.R;
+import pl.studia.android.skyscanner.view.connection.ActiveConnection;
 import pl.studia.android.skyscanner.view.connection.DataRepository;
+import pl.studia.android.skyscanner.view.connection.FlightsServiceFactory;
 import pl.studia.android.skyscanner.view.connection.HashMapDataRepository;
 import pl.studia.android.skyscanner.view.datamodel.ProfileData;
+import pl.studia.android.skyscanner.view.datamodel.UserData;
 import pl.studia.android.skyscanner.view.mocks.UsersServiceMock;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.text.Html.fromHtml;
 
@@ -58,6 +65,7 @@ public class TabFragment extends Fragment {
     TextView linkToOfferTextView;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
     DataRepository dataRepository = HashMapDataRepository.getInstance();
 
      static ProfileData profileData;
@@ -104,13 +112,22 @@ public class TabFragment extends Fragment {
         TVmaxCostValue.setText(data.getMaxPrice().toString());
 
         if(data.getDeepLink() != null) {
-            arrivalDateTextView.setText(dateFormat.format(data.getArrivalDate()));
-            deparureDateTextView.setText(dateFormat.format(data.getDepartureDate()));
-            priceTextView.setText("" + data.getPrice());
-            transfersNoTextView.setText("" + data.getRealTransfersNumber());
+            String tmpDataTime = dateTimeFormat.format(data.getArrivalDate());
+            tmpDataTime = tmpDataTime.replaceFirst("\\s", "<br/> ");
+            arrivalDateTextView.setText(fromHtml(tmpDataTime));
+            tmpDataTime = dateTimeFormat.format(data.getDepartureDate());
+            tmpDataTime = tmpDataTime.replaceFirst("\\s", "<br/> ");
+            deparureDateTextView.setText(fromHtml(tmpDataTime));
+            priceTextView.setText("" + data.getPrice().intValue() + " zł.");
+            if(data.getRealTransfersNumber() != null)
+                transfersNoTextView.setText("" + data.getRealTransfersNumber());
             String value = "<html>Link do oferty <a href=\"" + data.getDeepLink() + "\">kiwi.com</a></html>";
             linkToOfferTextView.setText(fromHtml(value));
             linkToOfferTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        else{
+            String value = "<b><u>Nie znaleziono lotów spełniających kryteria.</u></b>";
+            linkToOfferTextView.setText(fromHtml(value));
         }
 
         Bedit.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +144,24 @@ public class TabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Setting new fragment at tab
-                dataRepository.removeProfile(UsersServiceMock.getSampleUser(),data);
+//                dataRepository.removeProfile(UsersServiceMock.getSampleUser(),data);
+
+                UserData userData = ActiveConnection.getInstance().getUserData();
+                Call<Boolean> profileDataCall = FlightsServiceFactory.makeService().removeProfile(userData.getEmail(), userData.getPassword(), data.getId());
+                profileDataCall.enqueue(new Callback<Boolean>(){
+
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        Toast.makeText(getContext(), "Usunięto poprawnie!", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        Toast.makeText(getContext(), "Nie można usunąć rekordu. Sprawdź połączenie do internetu i spróbuj ponownie.", Toast.LENGTH_LONG).show();
+                    }
+                } );
+
+
                 main.onResume();
             }
         });

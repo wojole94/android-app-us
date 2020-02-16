@@ -45,7 +45,7 @@ public class SearchParameters {
     @JsonProperty("only_weekend_flights")
     private Boolean onlyWeekendFlights;
     @JsonProperty("price")
-    Integer currentPrice;
+    Double currentPrice;
     @JsonProperty("departure_date")
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
     LocalDateTime exactDepartureDate;

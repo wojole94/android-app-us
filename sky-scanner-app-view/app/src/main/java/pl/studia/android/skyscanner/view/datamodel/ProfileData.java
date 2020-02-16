@@ -46,20 +46,20 @@ public class ProfileData implements Serializable {
     @SerializedName("departure_date")
     private Date departureDate;
     @SerializedName("price")
-    private Integer price;
+    private Double price;
     @SerializedName("real_transfers_number")
     private Integer realTransfersNumber;
 
-//    public ProfileData() {
-//        this.adultsCount = new Integer(1);
-//        this.childCount = new Integer(0);
-//        this.departCity = "NONE";
-//        this.arrivalCity = "NONE";
-//        this.startDate = new Date();
-//        this.endDate = new Date();
-//        this.transfersCount = new Integer(0);
-//        this.maxPrice = new Double(1000);
-//    }
+    public ProfileData() {
+        this.adultsCount = new Integer(1);
+        this.childCount = new Integer(0);
+        this.departCity = "NONE";
+        this.arrivalCity = "NONE";
+        this.startDate = new Date();
+        this.endDate = new Date();
+        this.transfersCount = new Integer(2);
+        this.maxPrice = new Double(1000);
+    }
 //
 //    @Override
 //    public String toString() {

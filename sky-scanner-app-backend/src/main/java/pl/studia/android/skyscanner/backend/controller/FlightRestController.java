@@ -88,7 +88,7 @@ public class FlightRestController {
         throws IOException, InterruptedException {
 
         AppUser user = new AppUser(email, password);
-        //TODO validate & authenticate user
+        //to do validate & authenticate user
 //        SearchResult returnResponse = dataExtractor.removeProfile(user, searchResult);
         dataExtractor.removeProfile(profileId);
         return true;

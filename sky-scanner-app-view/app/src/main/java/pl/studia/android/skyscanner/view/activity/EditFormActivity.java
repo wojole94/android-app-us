@@ -127,11 +127,12 @@ public class EditFormActivity extends AppCompatActivity {
                     data.setStartDate(dateFormat.parse(ETdateFrom.getText().toString()));
                     data.setEndDate(dateFormat.parse(ETdateTo.getText().toString()));
 
-//                    data.setDeepLink("asdadsdsadasgrwewewq32rt2");
-//                    data.setArrivalDate(dateFormat.parse(ETdateFrom.getText().toString()));
-//                    data.setDepartureDate(dateFormat.parse(ETdateFrom.getText().toString()));
-//                    data.setPrice(321);
-//                    data.setRealTransfersNumber(3);
+                    data.setDeepLink(null);
+                    data.setArrivalDate(null);
+                    data.setDepartureDate(null);
+                    data.setPrice(0d);
+                    data.setRealTransfersNumber(0);
+
                     UserData userData = ActiveConnection.getInstance().getUserData();
                     Call<ProfileData> profileDataCall = FlightsServiceFactory.makeService().addProfile(userData.getEmail(), userData.getPassword(), data);
                     profileDataCall.enqueue(new Callback<ProfileData>() {
@@ -147,7 +148,7 @@ public class EditFormActivity extends AppCompatActivity {
                     });
 
 //TODO delete
-                    dataRepo.addProfile(UsersServiceMock.getSampleUser(), data);
+//                    dataRepo.addProfile(UsersServiceMock.getSampleUser(), data);
                     context.finish();
 
 

@@ -58,10 +58,11 @@ public class DataExtractor {
         log.info("Recieved results: {}", listOfResults.size());
         for (SearchDetail[] searchDetailArray : listOfResults) {
             if (searchDetailArray != null && searchDetailArray.length > 0) {
-                Flights flights = new Flights(searchDetailArray);//TODO - narazie zawsze odczytuje jedno połączenie
+                Flights flights = new Flights(searchDetailArray);// narazie zawsze odczytuje jedno najtańsze połączenie
                 SearchDetail flightWithBestPrice = flights.getFlightWithBestPrice();
                 SearchResult searchResult = mapper.mapToSearchResults(searchParametersDTO);
                 searchResult.setCurrentPrice(flightWithBestPrice.getPrice());
+                searchResult.setRealTransfersNumber(flightWithBestPrice.getPnrCount());
                 searchResult.setExactDepartureDate(LocalDateTime.ofInstant(flightWithBestPrice.getDTimeUTC(), ZoneOffset.UTC));
                 searchResult.setExactArrivalDate(LocalDateTime.ofInstant(flightWithBestPrice.getATimeUTC(), ZoneOffset.UTC));
                 searchResult.setDeepLink(flightWithBestPrice.getDeepLink());
@@ -69,7 +70,7 @@ public class DataExtractor {
             }
         }
         SearchResult searchResult = mapper.mapToSearchResults(searchParametersDTO);
-        searchResult.setCurrentPrice(0);
+        searchResult.setCurrentPrice(0d);
         searchResult.setExactDepartureDate(LocalDateTime.now());
         searchResult.setExactArrivalDate(LocalDateTime.now());
         return searchResult;

@@ -120,7 +120,7 @@ public class SearchDetail implements Serializable {
     @JsonProperty("technical_stops")
     private Integer technicalStops;
     @JsonProperty("price")
-    private Integer price;
+    private Double price;
     @JsonProperty("bags_price")
     private BagsPrice bagsPrice;
     @JsonIgnore
@@ -425,12 +425,12 @@ public class SearchDetail implements Serializable {
     }
 
     @JsonProperty("price")
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @JsonProperty("price")
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
