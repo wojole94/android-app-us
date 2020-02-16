@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditFormActivity extends AppCompatActivity {
+public class EditFormActivity extends BaseActivity {
     @BindView(R.id.Bcancel) Button Bcancel;
     @BindView(R.id.Bsave) Button Bsave;
     @BindView(R.id.SdepLoc) Spinner SdepLoc;
@@ -118,6 +119,7 @@ public class EditFormActivity extends AppCompatActivity {
                 //Setting new fragment at tab
                 //Taking data from form and create profile
                 try{
+                    showProgressDialog();
                     data.setDepartCity(SdepLoc.getSelectedItem().toString());
                     data.setArrivalCity(SarrLoc.getSelectedItem().toString());
                     data.setAdultsCount(Integer.parseInt(ETadults.getText().toString()));
@@ -138,18 +140,20 @@ public class EditFormActivity extends AppCompatActivity {
                     profileDataCall.enqueue(new Callback<ProfileData>() {
                         @Override
                         public void onResponse(Call<ProfileData> call, Response<ProfileData> response) {
+                            hideProgressDialog();
                             Toast.makeText(getApplicationContext(), "Zapisano nowe parametry wyszukiwania!", Toast.LENGTH_LONG).show();
+                            context.finish();
                         }
 
                         @Override
                         public void onFailure(Call<ProfileData> call, Throwable t) {
+                            hideProgressDialog();
                             Toast.makeText(getApplicationContext(), "Wystąpił błąd! Nie zapisano wprowadzonych parametrów wyszukiwania. Spróbuj ponownie.", Toast.LENGTH_LONG).show();
                         }
                     });
 
 //TODO delete
 //                    dataRepo.addProfile(UsersServiceMock.getSampleUser(), data);
-                    context.finish();
 
 
                 } catch (ParseException ex){

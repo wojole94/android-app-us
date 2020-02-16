@@ -27,11 +27,11 @@ public class SearchParameters {
     @JsonProperty("city_to")
     private String cityTo;
     @JsonProperty("search_start_date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate searchStartDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime searchStartDate;
     @JsonProperty("search_end_date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate searchEndDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime searchEndDate;
     //    @JsonProperty("length_of_stay")
 //    private Integer lengthOfStay;
     @JsonProperty("transfers_number")
@@ -47,10 +47,10 @@ public class SearchParameters {
     @JsonProperty("price")
     Double currentPrice;
     @JsonProperty("departure_date")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime exactDepartureDate;
     @JsonProperty("arrival_date")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime exactArrivalDate;
     @JsonProperty("deep_link")
     String deepLink;

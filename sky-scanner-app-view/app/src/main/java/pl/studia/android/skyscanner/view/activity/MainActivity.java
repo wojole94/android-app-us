@@ -24,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     static final Integer ADD_TAB_ID = -1;
     @BindView(R.id.viewgroup) ViewGroup scrollViewgroup;
     DataRepository dataAccess = HashMapDataRepository.getInstance();
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refreshUserProfiles(){
+        showProgressDialog();
         UserData userData = ActiveConnection.getInstance().getUserData();
         Call<Map<Integer, ProfileData>> allProfilesMapCall = FlightsServiceFactory.makeService().getAllProfilesMap(userData.getEmail(), userData.getPassword());
         if(!allProfilesMapCall.isExecuted()) {
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<Map<Integer, ProfileData>> call, Response<Map<Integer, ProfileData>> response) {
                     items = response.body();
                     buildTabsList(items);
+                    hideProgressDialog();
                 }
 
                 @Override

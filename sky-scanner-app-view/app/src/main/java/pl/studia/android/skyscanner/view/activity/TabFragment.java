@@ -153,6 +153,7 @@ public class TabFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         Toast.makeText(getContext(), "Usunięto poprawnie!", Toast.LENGTH_LONG).show();
+                        main.onResume();
                     }
 
                     @Override
@@ -162,7 +163,7 @@ public class TabFragment extends Fragment {
                 } );
 
 
-                main.onResume();
+
             }
         });
 

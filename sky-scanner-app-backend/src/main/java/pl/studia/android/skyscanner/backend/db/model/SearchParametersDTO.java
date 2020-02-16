@@ -33,9 +33,9 @@ public class SearchParametersDTO {
     @Column(name="fly_to")
     String flyTo;
     @Column(name="date_from")
-    LocalDate dateFrom;
+    LocalDateTime dateFrom;
     @Column(name="date_to")
-    LocalDate dateTo;
+    LocalDateTime dateTo;
     @Column(name="direct_flights")
     Boolean directFlights;
     @Column

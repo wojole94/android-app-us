@@ -27,8 +27,8 @@ public class KiwiConnection {
         PostAttr postAttr = new PostAttr(
             searchParameters.getFlyFrom(),
             searchParameters.getFlyTo(),
-            Date.from(searchParameters.getDateFrom().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
-            Date.from(searchParameters.getDateTo().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+            Date.from(searchParameters.getDateFrom().atZone(ZoneId.systemDefault()).toInstant()),
+            Date.from(searchParameters.getDateTo().atZone(ZoneId.systemDefault()).toInstant()),
             null,
             searchParameters.getAdults() + searchParameters.getChildren(),
             searchParameters.getAdults(),

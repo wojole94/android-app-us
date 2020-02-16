@@ -25,11 +25,11 @@ public class SearchResult {
     @JsonProperty("fly_to")
     private String flyTo;
     @JsonProperty("date_from")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateFrom;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateFrom;
     @JsonProperty("date_to")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateTo;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateTo;
     @JsonProperty("adults")
     private Integer adults;
     @JsonProperty("children")

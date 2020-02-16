@@ -22,7 +22,7 @@ public class FlightsServiceFactory {
                     .retryOnConnectionFailure(false)
                     .build();
 //            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm").create();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
