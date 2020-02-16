@@ -14,7 +14,8 @@ import okhttp3.OkHttpClient;
 
 public class FlightsServiceFactory {
     private static FlightsService flightsService;
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
+//    private static final String BASE_URL = "http://10.0.2.2:8080/";
+private static final String BASE_URL = "https://skyscannertest.herokuapp.com/";
 
 
     public static FlightsService makeService() {
