@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
-public class RestApiController {
+public class TestApiController {
 
     @Autowired
     ModelRepository testRepository;

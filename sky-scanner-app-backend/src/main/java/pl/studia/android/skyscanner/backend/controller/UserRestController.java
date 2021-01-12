@@ -3,7 +3,7 @@ package pl.studia.android.skyscanner.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import pl.studia.android.skyscanner.backend.db.manager.UserAccountManager;
+import pl.studia.android.skyscanner.backend.db.manager.UserAccountDatabaseManager;
 import pl.studia.android.skyscanner.backend.db.model.UserAccountDTO;
 
 import java.util.Optional;
@@ -14,27 +14,27 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserRestController {
 
-    private UserAccountManager userAccountManager;
+    private UserAccountDatabaseManager userAccountDatabaseManager;
 
     @Autowired
-    public UserRestController(UserAccountManager userAccountManager){
-        this.userAccountManager = userAccountManager;
+    public UserRestController(UserAccountDatabaseManager userAccountDatabaseManager){
+        this.userAccountDatabaseManager = userAccountDatabaseManager;
     }
 
     @GetMapping("/getUsers")
     public Iterable<UserAccountDTO> getAll() {
-        return userAccountManager.findAll();
+        return userAccountDatabaseManager.findAll();
     }
 
     @GetMapping("/getUser")
     public Optional<UserAccountDTO> get(@RequestParam String email) {
-        return userAccountManager.findById(email);
+        return userAccountDatabaseManager.findById(email);
     }
 
     @PostMapping("/auth")
     public Boolean authentication(@Valid @RequestBody UserAccountDTO userAccountDTOToValidate){
         Boolean isValid = false;
-        Optional<UserAccountDTO> usAcInDb = userAccountManager.findById(userAccountDTOToValidate.getEmail());
+        Optional<UserAccountDTO> usAcInDb = userAccountDatabaseManager.findById(userAccountDTOToValidate.getEmail());
         if(usAcInDb.isPresent()){
             UserAccountDTO userAccountDTOInDb = usAcInDb.get();
             if(userAccountDTOInDb.getPassword().equals(userAccountDTOToValidate.getPassword()))
@@ -46,16 +46,11 @@ public class UserRestController {
 //TODO check
     @PostMapping
     public UserAccountDTO add(@RequestBody UserAccountDTO userAccountDTO) {
-        return userAccountManager.save(userAccountDTO);
+        return userAccountDatabaseManager.save(userAccountDTO);
     }
 
     @PutMapping("/put")
     public UserAccountDTO update(@RequestBody UserAccountDTO userAccount) {
-        return userAccountManager.save(userAccount);
+        return userAccountDatabaseManager.save(userAccount);
     }
-//
-//    @DeleteMapping
-//    public void delete(@RequestParam Long index) {
-//        userAccountManager.deleteById(index);
-//    }
 }

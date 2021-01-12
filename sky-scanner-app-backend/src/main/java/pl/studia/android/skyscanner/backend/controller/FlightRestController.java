@@ -79,7 +79,6 @@ public class FlightRestController {
             throws IOException, InterruptedException {
         AppUser user = new AppUser(username, password);
         List<SearchParameters> returnResponseList = dataExtractor.getCurrentProfileStatusToSearchParameters(user);
-        int i=-1;
         Map<Integer, SearchParameters> returnResponseMap = new HashMap<>();
         for (SearchParameters returnResponse : returnResponseList)
             returnResponseMap.put(returnResponse.getId(), returnResponse);

@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserAccountManager {
+public class UserAccountDatabaseManager implements UserAccountService{
     private UserAccountRepository userAccountRepository;
 
     @Autowired
-    public UserAccountManager(UserAccountRepository userAccountRepository){
+    public UserAccountDatabaseManager(UserAccountRepository userAccountRepository){
         this.userAccountRepository = userAccountRepository;
     }
 

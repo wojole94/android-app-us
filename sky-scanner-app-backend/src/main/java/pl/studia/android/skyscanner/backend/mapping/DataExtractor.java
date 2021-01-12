@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.studia.android.skyscanner.backend.connector.KiwiConnection;
 import pl.studia.android.skyscanner.backend.db.manager.SearchParametersManager;
-import pl.studia.android.skyscanner.backend.db.manager.UserAccountManager;
+import pl.studia.android.skyscanner.backend.db.manager.UserAccountDatabaseManager;
 import pl.studia.android.skyscanner.backend.db.model.SearchParametersDTO;
 import pl.studia.android.skyscanner.backend.db.model.UserAccountDTO;
 import pl.studia.android.skyscanner.backend.db.repository.SearchParametersRepository;
@@ -37,7 +37,7 @@ public class DataExtractor {
     @Autowired
     SearchParametersManager profilesManager;
     @Autowired
-    UserAccountManager userManager;
+    UserAccountDatabaseManager userManager;
 
     private static final Logger log = LoggerFactory.getLogger(DataExtractor.class);
 
